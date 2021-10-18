@@ -1,6 +1,6 @@
 {
   "name": "kidar-vue-echarts",
-  "version": "0.0.9-beta",
+  "version": "0.0.10-beta",
   "description": "some components for vue",
   "main": "lib/kidar-vue-echarts.cjs.js",
   "module": "lib/kidar-vue-echarts.es.js",
@@ -25,11 +25,14 @@
     "lint:fix": "eslint ./src/**/*.{js,ts,tsx,vue,md} --fix"
   },
   "dependencies": {
+    "@babel/preset-env": "^7.15.8",
+    "@vitejs/plugin-legacy": "^1.6.2",
     "core-js": "^3.11.1",
     "echarts": "^5.2.1",
     "lodash-es": "^4.17.21",
     "nkxrb-tools": "0.0.3",
     "ramda": "^0.27.1",
+    "rollup-plugin-babel": "^4.4.0",
     "vue": "^2.6.14"
   },
   "devDependencies": {

@@ -7,12 +7,15 @@ export default defineConfig({
       legend: {
         data: cols.map(t => t.name)
       },
-      xAsix: [
+      yAxis: [
         {
-          type: 'category',
-          data: data.map(t => t.name)
+          type: 'value'
         }
       ],
+      xAxis: [{
+        type: "category",
+        data: data.map(t => t.name)
+      }],
       series: [
         {
           type: 'line',
