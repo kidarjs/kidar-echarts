@@ -7,7 +7,8 @@ import { removeListenElResize, listenElResize } from 'nkxrb-tools'
 import { mergeDeepRight } from 'ramda'
 
 import pie from './plugins/pie'
-import line from './plugins/line'
+
+const plugins = import.meta.glob('./plugins/*.ts')
 
 export default {
   name: 'KiEchartsPlus',
@@ -23,19 +24,11 @@ export default {
     }
   },
   plugins: {
-    pie: pie,
-    line: line
+    pie: pie
   },
   watch: {
-    type: {
-      handler: function (val) {
-        if (this.$options.plugins[val]) {
-          this.resetOption()
-        } else {
-          throw new Error(`未找到【${val}】类型：${error}`)
-        }
-      },
-      immediate: true
+    type: function () {
+      this.resetOption()
     },
     data: function () {
       this.resetOption()
@@ -53,8 +46,18 @@ export default {
       listenElResize(this.$refs.EchartsEl, () => this.chart.resize())
       this.resetOption()
     },
-    resetOption () {
-      const option = this.$options.plugins[this.type].resetOption(this.cols, this.data)
+    async resetOption () {
+      let option = {}
+      if (!this.$options.plugins[this.type]) {
+        try {
+          const plugin = await plugins[`./plugins/${this.type}.ts`]()
+          this.$options.plugins[this.type] = plugin.default.default
+        } catch (error) {
+          throw new Error(`未找到【${this.type}】类型：${error}`)
+        }
+      }
+      option = this.$options.plugins[this.type].resetOption(this.cols, this.data)
+
       this.chart.clear()
       this.chart.setOption(mergeDeepRight(option, this.option))
     }

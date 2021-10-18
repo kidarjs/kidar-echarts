@@ -15,7 +15,7 @@ export default defineConfig({
       ],
       series: [
         {
-          type: 'pilinee',
+          type: 'line',
           data: data
         }
       ]

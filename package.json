@@ -1,8 +1,8 @@
 {
   "name": "kidar-vue-echarts",
-  "version": "0.0.6-beta",
+  "version": "0.0.9-beta",
   "description": "some components for vue",
-  "main": "lib/kidar-vue-echarts.umd.js",
+  "main": "lib/kidar-vue-echarts.cjs.js",
   "module": "lib/kidar-vue-echarts.es.js",
   "types": "lib/src/index.d.ts",
   "author": {

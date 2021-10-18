@@ -34,13 +34,9 @@ declare namespace _default {
     };
     namespace plugins {
         export { pie };
-        export { line };
     }
     namespace watch {
-        export namespace type_5 {
-            function handler(val: any): void;
-            const immediate: boolean;
-        }
+        export function type_5(): void;
         export { type_5 as type };
         export function data_1(): void;
         export { data_1 as data };
@@ -52,10 +48,9 @@ declare namespace _default {
     namespace methods {
         function init(): void;
         function init(): void;
-        function resetOption(): void;
-        function resetOption(): void;
+        function resetOption(): Promise<void>;
+        function resetOption(): Promise<void>;
     }
 }
 export default _default;
 import pie from "./plugins/pie";
-import line from "./plugins/line";
