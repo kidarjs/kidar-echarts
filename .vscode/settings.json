@@ -1,0 +1,27 @@
+{
+  "vetur.format.defaultFormatter.js": "vscode-typescript",
+  "vetur.format.defaultFormatter.html": "js-beautify-html",
+  "vetur.format.options.tabSize": 2,
+  "vetur.format.options.useTabs": false,
+  //js-beautify-html格式化配置，属性强制换行
+  "vetur.format.defaultFormatterOptions": {
+    "js-beautify-html": {
+      "wrap_attributes": "aligned-multiple",
+      "wrap_line_length": 180
+    }
+  },
+  "eslint.validate": [
+    "javascript",
+    "html",
+    "vue"
+  ],
+  "editor.tabSize": 2, //tab时等于两个空格缩进
+  "editor.formatOnSave": true, //保存自动格式化
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  },
+  "vetur.format.styleInitialIndent": true,
+  "javascript.format.insertSpaceBeforeFunctionParenthesis": true,
+  "javascript.format.insertSpaceAfterConstructor": true,
+  "vetur.validation.templateProps": false
+}

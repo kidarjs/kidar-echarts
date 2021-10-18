@@ -1,0 +1,54 @@
+{
+  "name": "kidar-vue-echarts",
+  "version": "0.0.6-beta",
+  "description": "some components for vue",
+  "main": "lib/kidar-vue-echarts.umd.js",
+  "module": "lib/kidar-vue-echarts.es.js",
+  "types": "lib/src/index.d.ts",
+  "author": {
+    "name": "nkxrb",
+    "email": "w626023781@163.com"
+  },
+  "files": [
+    "lib",
+    "src"
+  ],
+  "peerDependencies": {
+    "vue": "^2.6.14",
+    "echarts": "^5.0.0"
+  },
+  "private": false,
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "lint": "eslint ./src/**/*.{js,ts,tsx,vue,md}",
+    "lint:fix": "eslint ./src/**/*.{js,ts,tsx,vue,md} --fix"
+  },
+  "dependencies": {
+    "core-js": "^3.11.1",
+    "echarts": "^5.2.1",
+    "lodash-es": "^4.17.21",
+    "nkxrb-tools": "0.0.3",
+    "ramda": "^0.27.1",
+    "vue": "^2.6.14"
+  },
+  "devDependencies": {
+    "@vue/compiler-sfc": "^3.2.20",
+    "@types/lodash-es": "^4.17.5",
+    "@types/node": "^16.10.1",
+    "@typescript-eslint/eslint-plugin": "^4.22.0",
+    "@typescript-eslint/parser": "^4.22.0",
+    "@vue/eslint-config-standard": "^5.1.2",
+    "@vue/eslint-config-typescript": "^7.0.0",
+    "eslint": "^7.25.0",
+    "eslint-plugin-import": "^2.24.2",
+    "eslint-plugin-standard": "^4.1.0",
+    "eslint-plugin-vue": "^7.9.0",
+    "husky": "^6.0.0",
+    "typescript": "^4.2.4",
+    "vite": "^2.2.3",
+    "vite-plugin-dts": "^0.8.2",
+    "vite-plugin-vue2": "^1.4.4",
+    "vue-template-compiler": "^2.6.14"
+  }
+}
