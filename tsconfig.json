@@ -4,7 +4,7 @@
     "module": "esnext",
     "strict": true,
     "jsx": "preserve",
-    "importHelpers": true,
+    "importHelpers": false,
     "isolatedModules": true,
     "moduleResolution": "node",
     "allowJs": true,
@@ -29,13 +29,6 @@
       "scripthost"
     ]
   },
-  "include": [
-    "src/**/*.ts",
-    "src/**/*.tsx",
-    "src/**/*.vue",
-    "tests/**/*.ts",
-    "tests/**/*.tsx"
-  ],
   "exclude": [
     "node_modules"
   ]

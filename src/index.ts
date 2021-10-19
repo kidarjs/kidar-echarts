@@ -1,40 +1,28 @@
-import Vue, { VueConstructor, PluginObject } from 'vue'
-import { EChartsCoreOption } from 'echarts'
-import EchartsPlus from './KiEchartsPlus.vue'
+import { VueConstructor, PluginObject } from 'vue'
+import KiEchartsPlus from './KiEchartsPlus.vue'
+import { EchartsPlugin, SFCWithInstall } from '../types/index'
 
-EchartsPlus.install = (vue: Vue & VueConstructor) => {
-  vue.component(EchartsPlus.name, EchartsPlus)
-}
+const _KiEchartsPlus: SFCWithInstall<typeof KiEchartsPlus> = KiEchartsPlus
 
-export declare class Column {
-  name: string
-  color?: string
-}
-export declare class BaseData {
-  name: string
-  value: number
-}
-
-export interface EchartsPlugin {
-  name: string,
-  resetOption<T>(cols: Column[], data: Array<T & BaseData>): EChartsCoreOption
+_KiEchartsPlus.install = (vue: VueConstructor) => {
+  vue.component(_KiEchartsPlus.name, _KiEchartsPlus)
 }
 
 export function defineConfig(config: EchartsPlugin) {
   return config
 }
 
-EchartsPlus.use = <EchartsPlugin>(plugin: PluginObject<EchartsPlugin>) => {
-  if (plugin.name in EchartsPlus.plugins) {
+_KiEchartsPlus.addPlugin = <EchartsPlugin>(plugin: PluginObject<EchartsPlugin>) => {
+  if (plugin.name in _KiEchartsPlus.plugins) {
     throw Error(`pluginName is exist ${plugin.name} 该插件名已存在`)
   }
-  EchartsPlus.plugins[plugin.name] = plugin
-  return EchartsPlus
+  _KiEchartsPlus.plugins[plugin.name] = plugin
+  return _KiEchartsPlus
 }
 
 // 判断是否是直接引入文件
 if (typeof window !== 'undefined' && window.Vue) {
-  EchartsPlus.install(window.Vue)
+  _KiEchartsPlus.install(window.Vue)
 }
 
-export default EchartsPlus
+export default _KiEchartsPlus

@@ -19,6 +19,7 @@ export default defineConfig({
       series: [
         {
           type: 'line',
+          realtimeSort: true,
           data: data
         }
       ]

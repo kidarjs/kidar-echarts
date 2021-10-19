@@ -13,6 +13,7 @@ const plugins = import.meta.glob('./plugins/*.ts')
 export default {
   name: 'KiEchartsPlus',
   props: {
+    isDynamic: { type: Boolean, default: false },
     type: { type: String, default: 'pie' },
     option: { type: Object, default: () => ({}) },
     cols: { type: Array, default: () => [] },
@@ -30,8 +31,11 @@ export default {
     type: function () {
       this.resetOption()
     },
-    data: function () {
-      this.resetOption()
+    data: {
+      handler: function () {
+        this.resetOption()
+      },
+      deep: true
     }
   },
   mounted () {
@@ -51,14 +55,14 @@ export default {
       if (!this.$options.plugins[this.type]) {
         try {
           const plugin = await plugins[`./plugins/${this.type}.ts`]()
-          this.$options.plugins[this.type] = plugin.default.default
+          this.$options.plugins[this.type] = plugin.default.default || plugin.default || plugin
         } catch (error) {
           throw new Error(`未找到【${this.type}】类型：${error}`)
         }
       }
       option = this.$options.plugins[this.type].resetOption(this.cols, this.data)
-
-      this.chart.clear()
+      console.log(this.isDynamic)
+      !this.isDynamic && this.chart.clear()
       this.chart.setOption(mergeDeepRight(option, this.option))
     }
   }
