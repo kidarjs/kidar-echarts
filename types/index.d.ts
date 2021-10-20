@@ -1,12 +1,6 @@
 import { VueConstructor } from 'vue'
 import { EChartsCoreOption, EChartsOption } from 'echarts'
 
-export type SFCWithInstall<T> = T & {
-  install(vue: VueConstructor): void
-  plugins?: { [key: string]: EchartsPlugin }
-  addPlugin?(plugin: EchartsPlugin): this
-}
-
 export declare class Column {
   name: string
   color?: string
@@ -20,4 +14,12 @@ export interface EchartsPlugin {
   name: string,
   resetOption<T>(cols: Column[], data: Array<T & BaseData>): EChartsCoreOption,
   resetOption<T>(cols: Column[], data: Array<T & BaseData>): EChartsOption
+}
+
+export function defineConfig(config: EchartsPlugin): EchartsPlugin
+
+export class KiEchartsPlus extends Vue {
+  static plugins: { [key: string]: EchartsPlugin }
+  static install(vue: VueConstructor): void
+  static addPlugin(plugin: EchartsPlugin): this
 }

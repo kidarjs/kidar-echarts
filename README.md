@@ -5,13 +5,19 @@
 </p>
 
 <p align="center">
- 具体可点击查看在线示例<a href="https://kidarjs.github.io/kidar-vue/"> ✨ Live Demo</a>
+ 具体可点击查看在线示例 ✨ <a href="https://kidarjs.github.io/kidar-vue-examples/">Live Demo</a>
 </p>
 
 # 🔥 Features
 
-- [-] 拖拽盒子：可以自由移动、缩放div容器，内部通过插槽自定义内容
-- [ ] 更简单的Echarts: 将通用功能进行封装，仅暴露配置option选项，无需关注自适应、鼠标点击事件等操作，支持自定义插件，更好的复用配置
+- [x] 快速绘制出简单图形，饼图、折线、柱状、环形、多样组合、地图
+- [x] 支持自定义插件
+- [x] 支持自适应宽高，当容器大小变化时自动适应
+- [x] 支持IE11
+- [x] 支持Typescript
+- [x] 支持自定义参数，方便定制tooltip、label等
+- [ ] 支持点击事件、鼠标移入移出事件
+- [ ] 
 
 # 涉及的技术
 * vite
@@ -23,26 +29,84 @@
 ## Install
 
 ```bash
-npm install
+npm install kidar-vue-echarts
 ```
 
 ## Development
 
-Just run and visit [http://localhost:8080](http://localhost:8080)
+1. new .vue file
+2. copy these codes 
+3. run it
 
-```bash
-npm run dev
+```vue
+<template>
+  <!-- 注意，容器的初始宽高需要定义，不然看不到 -->
+  <ki-echarts-plus type="mutiX" :data="data" :cols="cols" style="height: 400px; width: 100%" />
+</template>
+<script>
+import { KiEchartsPlus } from 'kidar-vue-echarts'
+export default {
+  components: { KiEchartsPlus },
+  data(){
+    return {
+      cols: [
+        {name: '折线', color: '#1890ff', type: 'line'},
+        {name: '柱子', color: '#ff90ff', type: 'bar'}
+      ],
+      data: [
+        {name: '2020-01', value: 123},
+        {name: '2020-02', value: 456},
+        {name: '2020-03', value: 789},
+        {name: '2020-04', value: 123}
+      ]
+    }
+  }
+}
+</script>
 ```
 
-## Build 
 
-To build the App, run
+## 添加自定义插件 Add Plugin 
 
-```bash
-npm run build
+```ts
+// main.ts
+import { KiEchartsPlus } from 'kidar-vue-echarts'
+
+import barX from "./plugins/barX";
+
+KiEchartsPlus.addPlugin(barX)
+
 ```
 
-And you will see the generated files in `dist`, which are ready to be served.
+```ts
+// barX.ts 推荐使用 ts + defineConfig 更友好的提示，提前规避编码错误
+import { defineConfig } from 'kidar-vue-echarts'
+
+export default defineConfig({
+  name: 'barX', // 此处的name属性，将用于组件的属性type
+  resetOption(cols, data) {
+    return {
+      yAxis: [{
+        type: 'value'
+      }],
+      xAxis: [{
+        type: 'category',
+        data: data.map(t => t.name)
+      }],
+      series: [
+        {
+          type: 'bar',
+          data: data
+        }
+      ]
+    }
+  }
+})
+
+```
+
 
 # Why
+由于使用原生Echarts,option配置项太多，很容易遗漏犯错，当项目中图表很多时，类似的图表很难复用，抽取组件也很麻烦。
 
+因此更贴合Vue使用者习惯的 kidar-vue-echarts 组件，将会给你带来更舒适的编码体验，减少了echarts的学习成本。

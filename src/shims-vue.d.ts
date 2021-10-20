@@ -1,5 +1,5 @@
 declare module "*.vue" {
-  import Vue, { VueConstructor } from "vue";
-  const component: VueConstructor<Vue> & { install(vue: VueConstructor) }
+  import { KiEchartsPlus } from '../types/index'
+  const component: KiEchartsPlus
   export default component;
 }

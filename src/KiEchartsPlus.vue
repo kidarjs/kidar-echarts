@@ -57,11 +57,14 @@ export default {
           const plugin = await plugins[`./plugins/${this.type}.ts`]()
           this.$options.plugins[this.type] = plugin.default.default || plugin.default || plugin
         } catch (error) {
-          throw new Error(`未找到【${this.type}】类型：${error}`)
+          throw new Error(`未找到【${this.type}】类型, 目前KiEchartsPlus仅支持
+          （pie、line、bar、dybar、mutiLine）
+          若没有满意的类型，可自定义类型plugin，并使用KiEchartsPlus.use(plugin)添加自定义类型。
+          自定义类型可参考技术文档：https://github.com
+          ：${error}`)
         }
       }
       option = this.$options.plugins[this.type].resetOption(this.cols, this.data)
-      console.log(this.isDynamic)
       !this.isDynamic && this.chart.clear()
       this.chart.setOption(mergeDeepRight(option, this.option))
     }
