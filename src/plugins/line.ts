@@ -1,9 +1,10 @@
+import { EChartsOption } from 'echarts'
 import { defineConfig } from '../index'
 
 export default defineConfig({
   name: 'line',
   resetOption(cols, data) {
-    const option = {
+    const option: EChartsOption = {
       legend: {
         data: cols.map(t => t.name)
       },
@@ -13,13 +14,12 @@ export default defineConfig({
         }
       ],
       xAxis: [{
-        type: "category",
+        type: 'category',
         data: data.map(t => t.name)
       }],
       series: [
         {
           type: 'line',
-          realtimeSort: true,
           data: data
         }
       ]

@@ -3,7 +3,7 @@ import { defineConfig } from '../index'
 export default defineConfig({
   name: 'pie',
   resetOption(cols, data) {
-    const option = {
+    return {
       legend: {
         data: cols.map(t => t.name)
       },
@@ -15,7 +15,5 @@ export default defineConfig({
         }
       ]
     }
-
-    return option
   }
 })

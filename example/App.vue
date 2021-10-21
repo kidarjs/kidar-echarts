@@ -4,6 +4,7 @@
     <div class="tools-bar">
       <button @click="switchType('pie')">pie</button>
       <button @click="switchType('line')">line</button>
+      <button @click="switchType('multiLineOrBarX')">multiLineOrBarX</button>
       <button @click="switchType('dybar')">dybar（动态排序）</button>
       <button @click="switchType('map')">Map</button>
     </div>
@@ -13,7 +14,7 @@
 
 <script>
 import Mock from "mockjs";
-import KiEchartsPlus from "@/index";
+import { KiEchartsPlus } from "@/index";
 
 export default {
   components: { KiEchartsPlus },

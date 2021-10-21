@@ -3,11 +3,15 @@ import { EChartsCoreOption, EChartsOption } from 'echarts'
 
 export declare class Column {
   name: string
+  prop?: string
+  type?: string
   color?: string
+  stack?: string
 }
 export declare class BaseData {
   name: string
-  value: number
+  [key: string | 'value']: number
+  [key: string]: any?
 }
 
 export interface EchartsPlugin {
