@@ -1,7 +1,7 @@
-<h1 align="center">Kidar组件库 🍥 适用于 Vue 2.x</h1>
+<h1 align="center">kidar-vue-echarts 🍥 更简单的Echarts</h1>
 
 <p align="center">
-  封装了一些实用的组件，例如：自由拖拽盒子、更简单的Echarts
+  将必要有关联的配置属性进行封装，仅暴露用户可能自定义的配置选项，无需关注自适应、鼠标点击事件等操作，支持自定义插件，更好的复用配置
 </p>
 
 <p align="center">
@@ -15,9 +15,9 @@
 - [x] 支持自适应宽高，当容器大小变化时自动适应
 - [x] 支持IE11
 - [x] 支持Typescript
-- [x] 支持自定义参数，方便定制tooltip、label等
+- [ ] 支持自定义参数，方便定制tooltip、label等
 - [ ] 支持点击事件、鼠标移入移出事件
-- [ ] 
+- [ ] 支持3D
 
 # 涉及的技术
 * vite
@@ -41,7 +41,7 @@ npm install kidar-vue-echarts
 ```vue
 <template>
   <!-- 注意，容器的初始宽高需要定义，不然看不到 -->
-  <ki-echarts-plus type="mutiX" :data="data" :cols="cols" style="height: 400px; width: 100%" />
+  <ki-echarts-plus type="multiLineOrBarX" :data="data" :cols="cols" style="height: 400px; width: 100%" />
 </template>
 <script>
 import { KiEchartsPlus } from 'kidar-vue-echarts'
