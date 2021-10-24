@@ -2,13 +2,14 @@
   <div style="text-align: center;">
     <h3 class="title">Kidar-vue-echarts</h3>
     <div class="tools-bar">
+      <button @click="switchTheme">切换暗色主题</button>
       <button @click="switchType('pie')">pie</button>
       <button @click="switchType('line')">line</button>
-      <button @click="switchType('multiLineOrBarX')">multiLineOrBarX</button>
+      <button @click="switchType('multi-line-bar-x')">multi-line-bar-x</button>
       <button @click="switchType('dybar')">dybar（动态排序）</button>
       <button @click="switchType('map')">Map</button>
     </div>
-    <ki-echarts-plus :type="type" :data="data" :is-dynamic="isDynamic" class="echarts-block" />
+    <ki-echarts-plus :type="type" :data="data" :cols="cols" :is-dynamic="isDynamic" :theme="theme" class="echarts-block" />
   </div>
 </template>
 
@@ -20,44 +21,63 @@ export default {
   components: { KiEchartsPlus },
   data () {
     return {
-      type: "pie",
+      type: 'pie',
       data: [],
+      cols: [],
+      theme: '',
       isDynamic: false,
       setIntervalId: null
     };
   },
   mounted () {
-    this.loadData()
+    let type = sessionStorage.getItem('KIDAR_INITPARAMS_TYPE') || 'pie'
+    this.switchType(type)
   },
   methods: {
-    loadData () {
+    switchTheme () {
+      this.theme = this.theme ? '' : 'dark'
+    },
+    loadData (len = 20) {
       this.data = Mock.mock({
-        "data|20": [
+        [`data|${len}`]: [
           {
             name: "@province",
-            value: "@natural(160, 100000)"
+            value: "@natural(160, 100000)",
+            bar: "@natural(10, 1000)",
+            line: "@natural(10, 1000)",
           }
         ]
       }).data;
     },
     dynamicLoadData () {
       this.setIntervalId = setInterval(() => {
-        for (let i = 0; i < this.data.length; i++) {
-          // this.$set(this.data, i, this.data)
-        }
         this.data.forEach(item => {
           item.value += Mock.mock('@natural(60, 10000)')
         })
       }, 3000);
     },
     switchType (type) {
-      this.isDynamic = type.startsWith('dy')
-      if (this.isDynamic) {
-        this.dynamicLoadData()
-      } else {
-        this.setIntervalId && clearInterval(this.setIntervalId)
+      this.isDynamic = false
+      this.cols = []
+      switch (type) {
+        case 'dybar':
+          this.isDynamic = true
+          this.dynamicLoadData()
+          break
+        case 'multi-line-bar-x':
+          this.cols = [
+            { name: '折线', prop: 'line', color: '#1890ff', type: 'line' },
+            { name: '柱子', prop: 'bar', color: '#ff90ff', type: 'bar' }
+          ]
+          this.loadData(200)
+          break
+        default:
+          this.loadData()
+          break
       }
       this.type = type;
+      sessionStorage.setItem('KIDAR_INITPARAMS_TYPE', this.type)
+      this.setIntervalId && !this.isDynamic && clearInterval(this.setIntervalId)
     },
   },
 };
@@ -69,6 +89,7 @@ export default {
     margin: 0 12px;
   }
   .echarts-block {
+    font-family: Algerian;
     width: 600px;
     height: 420px;
     margin: 0 auto;

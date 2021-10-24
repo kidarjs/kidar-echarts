@@ -4,7 +4,6 @@
 <script>
 import * as echarts from 'echarts'
 import { removeListenElResize, listenElResize } from 'nkxrb-tools'
-import { mergeDeepRight } from 'ramda'
 
 import pie from './plugins/pie'
 
@@ -14,20 +13,43 @@ export default {
   name: 'KiEchartsPlus',
   props: {
     isDynamic: { type: Boolean, default: false },
+    omit: { type: Number, default: 0 },
+    rotate: { type: Number, default: 0 },
+    zoomNum: { type: Number, default: 7 },
     type: { type: String, default: 'pie' },
-    option: { type: Object, default: () => ({}) },
     cols: { type: Array, default: () => [] },
-    data: { type: Array, default: () => [] }
+    data: { type: Array, default: () => [] },
+    theme: { type: [String, Object] },
+    locale: { type: String, default: 'zh-cn' },
+    renderer: { type: String, default: 'canvas' },
+    useDirtyRect: { type: Boolean, default: false },
+    devicePixelRatio: { type: Number, default: window.devicePixelRatio },
   },
   data () {
     return {
       chart: null
     }
   },
+  computed: {
+    opts: function () {
+      return {
+        locale: this.locale,
+        renderer: this.rendererType,
+        devicePixelRatio: this.devicePixelRatio,
+        useDirtyRect: this.useDirtyRect
+      }
+    }
+  },
   plugins: {
     pie: pie
   },
   watch: {
+    opts: function () {
+      this.chart && this.chart.dispose() && this.init()
+    },
+    theme: function () {
+      this.chart && this.chart.dispose() && this.init()
+    },
     type: function () {
       this.resetOption()
     },
@@ -39,18 +61,19 @@ export default {
     }
   },
   mounted () {
-    this.$nextTick(() => this.init())
+    this.$refs.EchartsEl ? this.init() : this.$nextTick(() => this.init())
   },
   beforeDestroy () {
     this.chart && removeListenElResize(this.$refs.EchartsEl) && this.chart.dispose()
   },
   methods: {
     init () {
-      this.chart = echarts.init(this.$refs.EchartsEl)
+      this.chart = echarts.init(this.$refs.EchartsEl, this.theme, this.opts)
       listenElResize(this.$refs.EchartsEl, () => this.chart.resize())
       this.resetOption()
     },
     async resetOption () {
+      if (!this.chart) return
       let option = {}
       if (!this.$options.plugins[this.type]) {
         try {
@@ -64,9 +87,9 @@ export default {
           ：${error}`)
         }
       }
-      option = this.$options.plugins[this.type].resetOption(this.cols, this.data)
+      option = this.$options.plugins[this.type].resetOption(this.cols, this.data, this)
       !this.isDynamic && this.chart.clear()
-      this.chart.setOption(mergeDeepRight(option, this.option))
+      this.chart.setOption(option)
     }
   }
 }

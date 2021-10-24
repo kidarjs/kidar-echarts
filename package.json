@@ -1,6 +1,6 @@
 {
   "name": "kidar-vue-echarts",
-  "version": "0.1.1-beta",
+  "version": "0.1.2-bate",
   "description": "some components for vue",
   "main": "lib/kidar-vue-echarts.cjs.js",
   "module": "lib/kidar-vue-echarts.es.js",
@@ -29,7 +29,7 @@
     "core-js": "^3.11.1",
     "echarts": "^5.2.1",
     "lodash-es": "^4.17.21",
-    "nkxrb-tools": "0.0.3",
+    "nkxrb-tools": "0.0.4",
     "ramda": "^0.27.1",
     "vue": "^2.6.14"
   },

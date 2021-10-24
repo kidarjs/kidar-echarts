@@ -41,7 +41,7 @@ npm install kidar-vue-echarts
 ```vue
 <template>
   <!-- 注意，容器的初始宽高需要定义，不然看不到 -->
-  <ki-echarts-plus type="multiLineOrBarX" :data="data" :cols="cols" style="height: 400px; width: 100%" />
+  <ki-echarts-plus type="multi-line-bar-x" :data="data" :cols="cols" style="height: 400px; width: 100%" />
 </template>
 <script>
 import { KiEchartsPlus } from 'kidar-vue-echarts'
