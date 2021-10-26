@@ -2,22 +2,15 @@ import { getTextWidth } from 'nkxrb-tools'
 import { Column, BaseData, KiEchartsPlus } from '../../types/index'
 import { SliderDataZoomComponentOption } from 'echarts'
 
-export const setZoom = (cols: Column[], data: BaseData[], ctx: KiEchartsPlus): SliderDataZoomComponentOption => {
+export const setZoom = (barsWidth: number, ctx: KiEchartsPlus): SliderDataZoomComponentOption => {
   const zoom: SliderDataZoomComponentOption = {}
+  const { chart, data } = ctx
   let interval = 10
-  // %#@!%^&%阿松大
-  // zoom.show = ctx.chart?.getWidth()
+  const end = chart.getWidth() / (barsWidth + interval)
+
+  zoom.show = end < data.length - 1
+  zoom.startValue = 0
+  zoom.endValue = end
 
   return zoom
-}
-
-const REG_Letter = /[a-z|\(|\)|\[|\]|\-|\,|\.|\/|\\|\=|\{|\%|\}]/
-
-export const omitStr = (value: string) => {
-  let len = 0
-  for (let i = 0; i < value.length; i++) {
-    if (value.charAt(i)) {
-
-    }
-  }
 }

@@ -44,6 +44,6 @@ export declare class KiEchartsPlus extends Vue {
   /**
    * echarts 的实例对象
    */
-  chart: EChartsType | undefined
+  chart: EChartsType
 
 }

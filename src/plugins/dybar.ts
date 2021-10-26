@@ -4,6 +4,9 @@ export default defineConfig({
   name: 'dybar',
   resetOption(cols, data) {
     const option = {
+      dataZoom: {
+        show: false
+      },
       legend: {
         data: cols.map(t => t.name)
       },

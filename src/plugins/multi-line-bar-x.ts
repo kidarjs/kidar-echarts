@@ -18,14 +18,16 @@ function setScatterSeries(item: ScatterSeriesOption) {
 }
 
 export default defineConfig({
-  name: 'multiLineOrBarX',
+  name: 'multi-line-bar-x',
   resetOption(cols, data, ctx) {
     const series: (LineSeriesOption | BarSeriesOption | ScatterSeriesOption)[] = []
     const { rotate, omit } = ctx
-    // let itemWidthMap: Object = {}
+    let barWidthCount = 1
+    let barWidth = 25
+    let stackSet = new Set()
     cols.forEach(col => {
-      // itemWidthMap
       const { name, prop, color, stack, itemStyle } = col
+
       let item: LineSeriesOption | BarSeriesOption | ScatterSeriesOption = {
         name, stack,
         itemStyle: {
@@ -40,6 +42,11 @@ export default defineConfig({
         default: setLineSeries(item as LineSeriesOption); break
       }
 
+      if (col.type === 'bar' && !stackSet.has(stack)) {
+        barWidthCount++
+        stackSet.add(stack)
+      }
+
       item.data = data.map(t => ({
         ...t,
         value: t[prop || name]
@@ -48,7 +55,9 @@ export default defineConfig({
       series.push(item)
     })
 
-    const dataZoom = setZoom(cols, data, ctx)
+    const xLabelWidth = rotate === 0 ? barWidth * barWidthCount : barWidth * barWidthCount * Math.abs(90 / rotate)
+
+    const dataZoom = setZoom(barWidth * barWidthCount, ctx)
 
     const option = {
       legend: {
@@ -66,19 +75,14 @@ export default defineConfig({
         axisLabel: {
           rotate: rotate,
           interval: omit ? 'auto' : 0,
-          formatter: (value: string, index?: number) => value
+          width: xLabelWidth,
+          overflow: 'truncate'
         }
       }],
       series: series
     }
 
-    option.xAxis[0].axisLabel.formatter = (value) => {
-      if (getTextWidth(value)) {
-
-      }
-      return value
-    }
-
+    console.log(option)
     return option
   }
 })

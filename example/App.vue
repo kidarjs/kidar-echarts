@@ -59,6 +59,7 @@ export default {
     switchType (type) {
       this.isDynamic = false
       this.cols = []
+      this.setIntervalId && !this.isDynamic && clearInterval(this.setIntervalId)
       switch (type) {
         case 'dybar':
           this.isDynamic = true
@@ -77,7 +78,7 @@ export default {
       }
       this.type = type;
       sessionStorage.setItem('KIDAR_INITPARAMS_TYPE', this.type)
-      this.setIntervalId && !this.isDynamic && clearInterval(this.setIntervalId)
+
     },
   },
 };
@@ -90,7 +91,7 @@ export default {
   }
   .echarts-block {
     font-family: Algerian;
-    width: 600px;
+    width: 60%;
     height: 420px;
     margin: 0 auto;
   }

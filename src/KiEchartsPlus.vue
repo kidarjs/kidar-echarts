@@ -45,10 +45,12 @@ export default {
   },
   watch: {
     opts: function () {
-      this.chart && this.chart.dispose() && this.init()
+      this.chart && this.chart.dispose()
+      this.init()
     },
     theme: function () {
-      this.chart && this.chart.dispose() && this.init()
+      this.chart && this.chart.dispose()
+      this.init()
     },
     type: function () {
       this.resetOption()
@@ -64,17 +66,20 @@ export default {
     this.$refs.EchartsEl ? this.init() : this.$nextTick(() => this.init())
   },
   beforeDestroy () {
-    this.chart && removeListenElResize(this.$refs.EchartsEl) && this.chart.dispose()
+    this.chart && removeListenElResize(this.$refs.EchartsEl)
+    this.chart.dispose()
   },
   methods: {
     init () {
       this.chart = echarts.init(this.$refs.EchartsEl, this.theme, this.opts)
-      listenElResize(this.$refs.EchartsEl, () => this.chart.resize())
+      listenElResize(this.$refs.EchartsEl, () => {
+        this.resetOption()
+        this.chart.resize()
+      })
       this.resetOption()
     },
     async resetOption () {
       if (!this.chart) return
-      let option = {}
       if (!this.$options.plugins[this.type]) {
         try {
           const plugin = await plugins[`./plugins/${this.type}.ts`]()
@@ -87,7 +92,7 @@ export default {
           ：${error}`)
         }
       }
-      option = this.$options.plugins[this.type].resetOption(this.cols, this.data, this)
+      const option = this.$options.plugins[this.type].resetOption(this.cols, this.data, this)
       !this.isDynamic && this.chart.clear()
       this.chart.setOption(option)
     }
