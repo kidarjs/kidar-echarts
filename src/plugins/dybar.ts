@@ -1,7 +1,8 @@
-import { defineConfig } from '../index'
+import { defineConfig, CONST_CATEGORY } from '../index'
 
 export default defineConfig({
   name: 'dybar',
+  isDynamic: true,
   resetOption(cols, data) {
     const option = {
       dataZoom: {
@@ -12,7 +13,7 @@ export default defineConfig({
       },
       yAxis: [
         {
-          type: "category",
+          type: CONST_CATEGORY,
           data: data.map(t => t.name),
           inverse: true,
           animationDuration: 300,
@@ -20,12 +21,12 @@ export default defineConfig({
         }
       ],
       xAxis: [{
-        type: 'value',
-        max: 'dataMax'
+        type: 'value' as 'value',
+        max: 'dataMax' as 'dataMax'
       }],
       series: [
         {
-          type: 'bar',
+          type: 'bar' as 'bar',
           realtimeSort: true,
           data: data,
           label: {
@@ -37,8 +38,8 @@ export default defineConfig({
       ],
       animationDuration: 0,
       animationDurationUpdate: 3000,
-      animationEasing: 'linear',
-      animationEasingUpdate: 'linear'
+      animationEasing: (k: number) => k,
+      animationEasingUpdate: (k: number) => k
     }
 
     return option

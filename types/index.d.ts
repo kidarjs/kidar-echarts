@@ -1,6 +1,5 @@
 import { VueConstructor } from 'vue'
 import { EChartsCoreOption, EChartsOption, EChartsType } from 'echarts'
-
 export declare class Column {
   name: string
   prop?: string
@@ -16,8 +15,9 @@ export declare class BaseData {
 }
 
 export interface EchartsPlugin {
-  name: string,
-  resetOption<T>(cols: Column[], data: Array<T & BaseData>, ctx: KiEchartsPlus): EChartsCoreOption,
+  name: string
+  isDynamic: boolean
+  resetOption<T>(cols: Column[], data: Array<T & BaseData>, ctx: KiEchartsPlus): EChartsCoreOption
   resetOption<T>(cols: Column[], data: Array<T & BaseData>, ctx: KiEchartsPlus): EChartsOption
 }
 

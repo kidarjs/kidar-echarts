@@ -7,7 +7,7 @@ import { removeListenElResize, listenElResize } from 'nkxrb-tools'
 
 import pie from './plugins/pie'
 
-const plugins = import.meta.glob('./plugins/*.ts')
+const LAZY_LOAD_PLUGINS = import.meta.glob('./plugins/*.ts')
 
 export default {
   name: 'KiEchartsPlus',
@@ -80,20 +80,21 @@ export default {
     },
     async resetOption () {
       if (!this.chart) return
-      if (!this.$options.plugins[this.type]) {
+      let plugin = this.$options.plugins[this.type]
+      if (!plugin) {
         try {
-          const plugin = await plugins[`./plugins/${this.type}.ts`]()
-          this.$options.plugins[this.type] = plugin.default.default || plugin.default || plugin
+          let importPlugin = await LAZY_LOAD_PLUGINS[`./plugins/${this.type}.ts`]()
+          plugin = this.$options.plugins[this.type] = importPlugin.default.default || importPlugin.default || importPlugin
         } catch (error) {
           throw new Error(`未找到【${this.type}】类型, 目前KiEchartsPlus仅支持
-          （pie、line、bar、dybar、mutiLine）
+          （pie、line、bar、dybar、multi-line-bar-x）
           若没有满意的类型，可自定义类型plugin，并使用KiEchartsPlus.use(plugin)添加自定义类型。
           自定义类型可参考技术文档：https://github.com
           ：${error}`)
         }
       }
-      const option = this.$options.plugins[this.type].resetOption(this.cols, this.data, this)
-      !this.isDynamic && this.chart.clear()
+      const option = plugin.resetOption(this.cols, this.data, this)
+      !plugin.isDynamic && this.chart.clear()
       this.chart.setOption(option)
     }
   }

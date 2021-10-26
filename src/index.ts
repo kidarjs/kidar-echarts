@@ -2,6 +2,8 @@ import { VueConstructor, PluginObject } from 'vue'
 import KiEchartsPlus from './KiEchartsPlus.vue'
 import { EchartsPlugin } from '../types/index'
 
+export const CONST_CATEGORY = "category" as "category"
+
 KiEchartsPlus.install = (vue: VueConstructor) => {
   vue.component(KiEchartsPlus.name, KiEchartsPlus)
 }
