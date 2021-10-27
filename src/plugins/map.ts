@@ -1,8 +1,8 @@
 import { CONST_V, defineConfig } from '../index'
 import * as echarts from 'echarts/core'
-import { world } from '../geojson/world'
+import china from '../geojson/geo_china.json'
 
-echarts.registerMap('world', { svg: world })
+echarts.registerMap('china', { geoJSON: china })
 
 export default defineConfig({
   name: 'map',
@@ -18,19 +18,12 @@ export default defineConfig({
       ],
       geo: {
         roam: true,
-        center: [115.97, 29.71],
-        // layoutCenter: ['50%', '50%'],
-        // layoutSize: '100%',
+        center: [111.0, 35.02],
+        layoutCenter: ['50%', '50%'],
+        layoutSize: '100%',
         selectedMode: 'single',
-        map: 'world',
-        coordinateSystem: 'geo',
-        left: 0, top: 0, right: 0, bottom: 0,
-        boundingCoords: [
-          // 定位左上角经纬度
-          [-180, 90],
-          // 定位右下角经纬度
-          [180, -90]
-        ]
+        map: 'china',
+        coordinateSystem: 'geo'
       },
       series: [
         {
@@ -38,7 +31,11 @@ export default defineConfig({
           coordinateSystem: 'geo',
           geoIndex: 0,
           data: [
-            [121.48, 31.22]
+            [121.48, 31.22],
+            [121.39, 37.52],
+            [104.06, 30.67, '成都', 455],
+            [113.3, 40.12, '大同'],
+            [111.0, 35.02, '运城'],
           ]
         }
       ]
