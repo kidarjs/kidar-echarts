@@ -2,7 +2,17 @@ import { VueConstructor, PluginObject } from 'vue'
 import KiEchartsPlus from './KiEchartsPlus.vue'
 import { EchartsPlugin } from '../types/index'
 
-export const CONST_CATEGORY = "category" as "category"
+export const CONST_V = {
+  category: "category" as "category",
+  value: "value" as "value",
+  dataMax: "dataMax" as "dataMax",
+  bar: "bar" as "bar",
+  line: "line" as "line",
+  pie: "pie" as "pie",
+  map: "map" as "map",
+  right: "right" as "right",
+  left: "left" as "left",
+}
 
 KiEchartsPlus.install = (vue: VueConstructor) => {
   vue.component(KiEchartsPlus.name, KiEchartsPlus)

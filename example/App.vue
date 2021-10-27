@@ -1,6 +1,6 @@
 <template>
   <div style="text-align: center;">
-    <h3 class="title">Kidar-vue-echarts</h3>
+    <h3 class="title">kidar-vue-echarts</h3>
     <div class="tools-bar">
       <button @click="switchTheme">切换暗色主题</button>
       <button @click="switchType('pie')">pie</button>
@@ -9,7 +9,7 @@
       <button @click="switchType('dybar')">dybar（动态排序）</button>
       <button @click="switchType('map')">Map</button>
     </div>
-    <ki-echarts-plus :type="type" :data="data" :cols="cols" :is-dynamic="isDynamic" :theme="theme" class="echarts-block" />
+    <ki-echarts-plus :type="type" :data="data" :cols="cols" :theme="theme" class="echarts-block" />
   </div>
 </template>
 
@@ -50,6 +50,7 @@ export default {
       }).data;
     },
     dynamicLoadData () {
+      this.loadData(18)
       this.setIntervalId = setInterval(() => {
         this.data.forEach(item => {
           item.value += Mock.mock('@natural(60, 10000)')
@@ -87,7 +88,8 @@ export default {
 <style scoped>
   .tools-bar button {
     font-family: Arial, "Helvetica Neue", Helvetica, sans-serif, "微软雅黑";
-    margin: 0 12px;
+    margin: 12px 12px 0;
+    cursor: pointer;
   }
   .echarts-block {
     font-family: Algerian;

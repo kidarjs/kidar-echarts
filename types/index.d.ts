@@ -16,7 +16,7 @@ export declare class BaseData {
 
 export interface EchartsPlugin {
   name: string
-  isDynamic: boolean
+  isDynamic?: boolean
   resetOption<T>(cols: Column[], data: Array<T & BaseData>, ctx: KiEchartsPlus): EChartsCoreOption
   resetOption<T>(cols: Column[], data: Array<T & BaseData>, ctx: KiEchartsPlus): EChartsOption
 }

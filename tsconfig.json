@@ -6,6 +6,7 @@
     "jsx": "preserve",
     "importHelpers": false,
     "isolatedModules": true,
+    "resolveJsonModule": true,
     "moduleResolution": "node",
     "allowJs": true,
     "skipLibCheck": true,

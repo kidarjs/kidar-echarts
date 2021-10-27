@@ -1,25 +1,24 @@
-import { EChartsOption } from 'echarts'
-import { defineConfig } from '../index'
+import { CONST_V, defineConfig } from '../index'
 
 export default defineConfig({
   name: 'line',
   resetOption(cols, data) {
-    const option: EChartsOption = {
+    const option = {
       legend: {
         data: cols.map(t => t.name)
       },
       yAxis: [
         {
-          type: 'value'
+          type: CONST_V.value
         }
       ],
       xAxis: [{
-        type: 'category',
+        type: CONST_V.category,
         data: data.map(t => t.name)
       }],
       series: [
         {
-          type: 'line',
+          type: CONST_V.line,
           data: data
         }
       ]

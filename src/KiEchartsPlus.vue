@@ -53,6 +53,7 @@ export default {
       this.init()
     },
     type: function () {
+      this.chart && this.chart.clear()
       this.resetOption()
     },
     data: {
@@ -86,8 +87,7 @@ export default {
           let importPlugin = await LAZY_LOAD_PLUGINS[`./plugins/${this.type}.ts`]()
           plugin = this.$options.plugins[this.type] = importPlugin.default.default || importPlugin.default || importPlugin
         } catch (error) {
-          throw new Error(`未找到【${this.type}】类型, 目前KiEchartsPlus仅支持
-          （pie、line、bar、dybar、multi-line-bar-x）
+          throw new Error(`未找到【${this.type}】类型, 目前KiEchartsPlus仅支持pie,line,bar,dybar,multi-line-bar-x
           若没有满意的类型，可自定义类型plugin，并使用KiEchartsPlus.use(plugin)添加自定义类型。
           自定义类型可参考技术文档：https://github.com
           ：${error}`)
