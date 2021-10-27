@@ -10,6 +10,7 @@ export const CONST_V = {
   line: "line" as "line",
   pie: "pie" as "pie",
   map: "map" as "map",
+  scatter: "scatter" as "scatter",
   right: "right" as "right",
   left: "left" as "left",
 }
