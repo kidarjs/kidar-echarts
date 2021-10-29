@@ -4,10 +4,13 @@
     <div class="tools-bar">
       <button @click="switchTheme">切换暗色主题</button>
       <button @click="switchType('pie')">pie</button>
+      <button @click="switchType('ring')">ring</button>
       <button @click="switchType('line')">line</button>
       <button @click="switchType('multi-line-bar-x')">multi-line-bar-x</button>
       <button @click="switchType('dybar')">dybar（动态排序）</button>
       <button @click="switchType('map')">Map</button>
+      <button @click="switchType('map3d')">Map 3D</button>
+      <button @click="switchType('tree')">tree</button>
     </div>
     <ki-echarts-plus :type="type" :data="data" :cols="cols" :theme="theme" class="echarts-block" />
   </div>
@@ -41,7 +44,7 @@ export default {
       this.data = Mock.mock({
         [`data|${len}`]: [
           {
-            name: "@province",
+            name: "@city",
             value: "@natural(160, 100000)",
             bar: "@natural(10, 1000)",
             line: "@natural(10, 1000)",

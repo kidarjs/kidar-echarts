@@ -1,4 +1,5 @@
-import { defineConfig, CONST_V } from '../index'
+import { defineConfig } from '../index'
+import { AXIS_TYPE, CONST_V, POSITION, SERIES_TYPE } from './constant'
 
 export default defineConfig({
   name: 'dybar',
@@ -17,7 +18,7 @@ export default defineConfig({
       },
       yAxis: [
         {
-          type: CONST_V.category,
+          type: AXIS_TYPE.category,
           boundaryGap: true,
           data: data.map(t => t.name),
           axisLabel: {
@@ -31,17 +32,17 @@ export default defineConfig({
         }
       ],
       xAxis: [{
-        type: CONST_V.value,
+        type: AXIS_TYPE.value,
         max: CONST_V.dataMax
       }],
       series: [
         {
-          type: CONST_V.bar,
+          type: SERIES_TYPE.bar,
           realtimeSort: true,
           data: data,
           label: {
             show: true,
-            position: CONST_V.right,
+            position: POSITION.right,
             valueAnimation: true
           }
         }

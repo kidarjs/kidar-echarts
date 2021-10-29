@@ -1,4 +1,5 @@
-import { CONST_V, defineConfig } from '../index'
+import { defineConfig } from '../index'
+import { AXIS_TYPE, SERIES_TYPE } from './constant'
 
 export default defineConfig({
   name: 'line',
@@ -9,16 +10,16 @@ export default defineConfig({
       },
       yAxis: [
         {
-          type: CONST_V.value
+          type: AXIS_TYPE.value
         }
       ],
       xAxis: [{
-        type: CONST_V.category,
+        type: AXIS_TYPE.category,
         data: data.map(t => t.name)
       }],
       series: [
         {
-          type: CONST_V.line,
+          type: SERIES_TYPE.line,
           data: data
         }
       ]

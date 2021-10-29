@@ -1,8 +1,9 @@
-import { CONST_V, defineConfig } from '../index'
+import { defineConfig } from '../index'
 import * as echarts from 'echarts/core'
 import china from '../geojson/geo_china.json'
+import { SERIES_TYPE } from './constant'
 
-echarts.registerMap('china', { geoJSON: china })
+echarts.registerMap('china', { geoJSON: china as any, specialAreas: { china: { left: 0, top: 0 } } })
 
 export default defineConfig({
   name: 'map',
@@ -27,7 +28,7 @@ export default defineConfig({
       },
       series: [
         {
-          type: CONST_V.scatter,
+          type: SERIES_TYPE.effectScatter,
           coordinateSystem: 'geo',
           geoIndex: 0,
           data: [

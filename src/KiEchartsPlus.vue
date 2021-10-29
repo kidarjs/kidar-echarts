@@ -4,6 +4,7 @@
 <script>
 import * as echarts from 'echarts'
 import { removeListenElResize, listenElResize } from 'nkxrb-tools'
+import { debounce } from 'lodash-es'
 
 import pie from './plugins/pie'
 
@@ -12,7 +13,6 @@ const LAZY_LOAD_PLUGINS = import.meta.glob('./plugins/*.ts')
 export default {
   name: 'KiEchartsPlus',
   props: {
-    isDynamic: { type: Boolean, default: false },
     omit: { type: Number, default: 0 },
     rotate: { type: Number, default: 0 },
     zoomNum: { type: Number, default: 7 },
@@ -27,8 +27,12 @@ export default {
   },
   data () {
     return {
-      chart: null
+      chart: null,
+      setOptionFn: undefined
     }
+  },
+  created () {
+    this.setOptionFn = debounce(this.resetOption, 500)
   },
   computed: {
     opts: function () {
@@ -53,12 +57,12 @@ export default {
       this.init()
     },
     type: function () {
-      this.chart && this.chart.clear()
-      this.resetOption()
+      this.chart && this.chart.dispose()
+      this.init()
     },
     data: {
       handler: function () {
-        this.resetOption()
+        this.setOptionFn()
       },
       deep: true
     }
@@ -74,10 +78,10 @@ export default {
     init () {
       this.chart = echarts.init(this.$refs.EchartsEl, this.theme, this.opts)
       listenElResize(this.$refs.EchartsEl, () => {
-        this.resetOption()
+        this.setOptionFn()
         this.chart.resize()
       })
-      this.resetOption()
+      this.setOptionFn()
     },
     async resetOption () {
       if (!this.chart) return
@@ -94,8 +98,18 @@ export default {
         }
       }
       const option = plugin.resetOption(this.cols, this.data, this)
-      !plugin.isDynamic && this.chart.clear()
-      this.chart.setOption(option)
+
+      try {
+        !plugin.isDynamic && this.chart.clear()
+        this.chart.setOption(option)
+      } catch (error) {
+        if (error.message && error.message.indexOf('not be called during main process') > 0) {
+          this.chart.dispose()
+          this.chart.setOption(option)
+        } else {
+          throw new Error(error)
+        }
+      }
     }
   }
 }

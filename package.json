@@ -29,8 +29,9 @@
     "@svg-maps/china": "^1.0.1",
     "core-js": "^3.11.1",
     "echarts": "^5.2.1",
+    "echarts-gl": "^2.0.8",
     "lodash-es": "^4.17.21",
-    "nkxrb-tools": "0.0.4",
+    "nkxrb-tools": "0.0.5",
     "ramda": "^0.27.1",
     "vue": "^2.6.14"
   },
