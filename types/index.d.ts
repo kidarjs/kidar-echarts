@@ -14,14 +14,24 @@ export declare class BaseData {
   [key: string]: unknown
 }
 
+export interface ECharts3DSeriesOption {
+  type: 'lines3D' | '' | ''
+  coordinateSystem?: unknown
+  [key: string]: any
+}
+export interface ECharts3DOption {
+  series: ECharts3DSeriesOption[]
+  geo3D?: unknown
+  [key: string]: any
+}
+
 export interface EchartsPlugin {
   name: string
   isDynamic?: boolean
-  resetOption<T>(cols: Column[], data: Array<T & BaseData>, ctx: KiEchartsPlus): EChartsCoreOption
-  resetOption<T>(cols: Column[], data: Array<T & BaseData>, ctx: KiEchartsPlus): EChartsOption
+  resetOption<T>(cols: Column[], data: Array<T & BaseData>, ctx: KiEchartsPlus): EChartsOption | ECharts3DOption | EChartsCoreOption
 }
 
-export function defineConfig(config: EchartsPlugin): EchartsPlugin
+export declare function defineConfig(config: EchartsPlugin): EchartsPlugin
 
 export declare class KiEchartsPlus extends Vue {
   static plugins: { [key: string]: EchartsPlugin }
@@ -41,9 +51,11 @@ export declare class KiEchartsPlus extends Vue {
   useDirtyRect: boolean
   devicePixelRatio: number
 
-  /**
-   * echarts 的实例对象
-   */
+  // echarts 的实例对象
   chart: EChartsType
+  chartId: string
+
+  // methods
+  init: Function
 
 }

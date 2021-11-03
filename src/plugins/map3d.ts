@@ -11,7 +11,9 @@ echarts.registerMap('china', { geoJSON: china as any, specialAreas: { china: { l
 
 export default defineConfig({
   name: 'map',
-  resetOption(cols, data) {
+  resetOption(cols, data, ctx) {
+    ctx.chart.dispose()
+    ctx.init()
     const option = {
       geo3D: {
         map: 'china',
@@ -23,23 +25,23 @@ export default defineConfig({
         {
           type: SERIES_TYPE.lines3D,
           coordinateSystem: 'geo3D',
-          geoIndex: 0,
+          geo3DIndex: 0,
           data: [
-            [[104.06, 30.67], [111.0, 35.02]],
-            [[114.06, 30.67], [111.0, 35.02]],
-            [[124.06, 30.67], [111.0, 35.02]],
-            [[134.06, 30.67], [111.0, 35.02]]
+            [[104.06, 30.67, 1], [111.0, 35.02, 2]],
+            [[114.06, 30.67, 5], [111.0, 35.02, 3]],
+            [[104.06, 32.67, 2], [111.0, 35.02, 5]],
+            [[124.06, 50.67, 4], [111.0, 35.02, 1]]
           ],
           effect: {
             show: true,
-            trailWidth: 2,
-            trailLength: 0.2
+            trailColor: '#1890ff',
+            trailOpacity: 0.8
           },
-          blendMode: 'lighter',
+          blendMode: 'source-over',
           lineStyle: {
-            width: 1,
-            color: 'rgb(50, 50, 150)',
-            opacity: 0.8
+            width: 2,
+            color: '#1890ff',
+            opacity: 0.2
           },
         }
       ]

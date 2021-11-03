@@ -3,7 +3,7 @@ import { AXIS_TYPE, SERIES_TYPE } from './constant'
 
 export default defineConfig({
   name: 'line',
-  resetOption(cols, data) {
+  resetOption(cols, data, ctx) {
     const option = {
       legend: {
         data: cols.map(t => t.name)

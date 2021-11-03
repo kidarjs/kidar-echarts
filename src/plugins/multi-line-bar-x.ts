@@ -82,7 +82,6 @@ export default defineConfig({
       series: series
     }
 
-    console.log(option)
     return option
   }
 })

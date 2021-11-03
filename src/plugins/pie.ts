@@ -2,7 +2,8 @@ import { defineConfig } from '../index'
 
 export default defineConfig({
   name: 'pie',
-  resetOption(cols, data) {
+  resetOption(cols, data, ctx) {
+
     return {
       legend: {
         data: cols.map(t => t.name)

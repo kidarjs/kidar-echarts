@@ -10,7 +10,7 @@
       <button @click="switchType('dybar')">dybar（动态排序）</button>
       <button @click="switchType('map')">Map</button>
       <button @click="switchType('map3d')">Map 3D</button>
-      <button @click="switchType('tree')">tree</button>
+      <button @click="switchType('treemap')">treemap</button>
     </div>
     <ki-echarts-plus :type="type" :data="data" :cols="cols" :theme="theme" class="echarts-block" />
   </div>
@@ -53,12 +53,12 @@ export default {
       }).data;
     },
     dynamicLoadData () {
-      this.loadData(18)
+      this.loadData(30)
       this.setIntervalId = setInterval(() => {
         this.data.forEach(item => {
           item.value += Mock.mock('@natural(60, 10000)')
         })
-      }, 3000);
+      }, 1000);
     },
     switchType (type) {
       this.isDynamic = false
@@ -97,7 +97,7 @@ export default {
   .echarts-block {
     font-family: Algerian;
     width: 60%;
-    height: 420px;
-    margin: 0 auto;
+    height: 620px;
+    margin: 15px auto;
   }
 </style>

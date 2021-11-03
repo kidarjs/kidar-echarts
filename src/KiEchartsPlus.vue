@@ -5,7 +5,6 @@
 import * as echarts from 'echarts'
 import { removeListenElResize, listenElResize } from 'nkxrb-tools'
 import { debounce } from 'lodash-es'
-
 import pie from './plugins/pie'
 
 const LAZY_LOAD_PLUGINS = import.meta.glob('./plugins/*.ts')
@@ -28,6 +27,7 @@ export default {
   data () {
     return {
       chart: null,
+      chartId: 'echarts-transition-id',
       setOptionFn: undefined
     }
   },
@@ -56,9 +56,12 @@ export default {
       this.chart && this.chart.dispose()
       this.init()
     },
-    type: function () {
-      this.chart && this.chart.dispose()
-      this.init()
+    type: function (newV, oldV) {
+      if (this.isSimType(newV) === this.isSimType(oldV)) {
+        this.chart && this.chart.clear()
+      }
+      // this.chart && this.chart.dispose()
+      // this.init()
     },
     data: {
       handler: function () {
@@ -109,6 +112,17 @@ export default {
         } else {
           throw new Error(error)
         }
+      }
+    },
+    isSimType (type) {
+      if (['line', 'dybar', 'multi-line-bar-x'].includes(type)) {
+        return 'xy'
+      } else if (['pie', 'ring'].includes(type)) {
+        return 'pie'
+      } else if (['map', 'treemap', 'map3d'].includes(type)) {
+        return 'map'
+      } else {
+        return 'unknow'
       }
     }
   }
