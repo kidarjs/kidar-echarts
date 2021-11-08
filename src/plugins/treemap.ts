@@ -3,12 +3,13 @@ import { SERIES_TYPE } from './constant'
 
 export default defineConfig({
   name: 'treemap',
-  resetOption(cols, data) {
+  resetOption(cols, data, ctx) {
+
     return {
       series: [
         {
+          id: ctx.chartId,
           type: SERIES_TYPE.treemap,
-          id: 'echarts-package-size',
           animationDurationUpdate: 1000,
           roam: false,
           nodeClick: undefined,

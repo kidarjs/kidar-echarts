@@ -15,8 +15,8 @@ const config = defineConfig({
     outDir: 'lib',
     lib: {
       entry: 'src/index.ts',
-      fileName: 'kidar-vue-echarts',
-      name: 'KI_ECHARTS_PLUS'
+      fileName: 'kidar-echarts',
+      name: 'KIDAR_ECHARTS'
     },
     rollupOptions: {
       // 确保外部化处理那些你不想打包进库的依赖

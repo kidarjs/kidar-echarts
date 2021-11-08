@@ -1,4 +1,4 @@
-<h1 align="center">kidar-vue-echarts 🍥 更简单的Echarts</h1>
+<h1 align="center">kidar-echarts 🍥 更简单的Echarts</h1>
 
 <p align="center">
   将必要有关联的配置属性进行封装，仅暴露用户可能自定义的配置选项，无需关注自适应、鼠标点击事件等操作，支持自定义插件，更好的复用配置
@@ -48,7 +48,7 @@ kidar-vue-echarts为了解决这个问题，将大家常用的option进行收集
 ## Install
 
 ```bash
-npm install kidar-vue-echarts
+npm install kidar-echarts
 ```
 
 ## Development
@@ -60,12 +60,12 @@ npm install kidar-vue-echarts
 ```vue
 <template>
   <!-- 注意，容器的初始宽高需要定义，不然看不到 -->
-  <ki-echarts-plus type="multi-line-bar-x" :data="data" :cols="cols" style="height: 400px; width: 100%" />
+  <kidar-echarts type="multi-line-bar-x" :data="data" :cols="cols" style="height: 400px; width: 100%" />
 </template>
 <script>
-import { KiEchartsPlus } from 'kidar-vue-echarts'
+import { KidarEcharts } from 'kidar-vue-echarts'
 export default {
-  components: { KiEchartsPlus },
+  components: { KidarEcharts },
   data(){
     return {
       cols: [
@@ -89,21 +89,21 @@ export default {
 
 ```ts
 // main.ts
-import { KiEchartsPlus } from 'kidar-vue-echarts'
+import { KidarEcharts } from 'kidar-echarts'
 
 import barX from "./plugins/barX";
 
-KiEchartsPlus.addPlugin(barX)
+KidarEcharts.addPlugin(barX)
 
 ```
 
 ```ts
 // barX.ts 推荐使用 ts + defineConfig 更友好的提示，提前规避编码错误
-import { defineConfig } from 'kidar-vue-echarts'
+import { defineConfig } from 'kidar-echarts'
 
 export default defineConfig({
   name: 'barX', // 此处的name属性，将用于组件的属性type
-  resetOption(cols, data) {
+  resetOption(cols, data, ctx) {
     return {
       yAxis: [{
         type: 'value'

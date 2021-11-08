@@ -28,12 +28,12 @@ export interface ECharts3DOption {
 export interface EchartsPlugin {
   name: string
   isDynamic?: boolean
-  resetOption<T>(cols: Column[], data: Array<T & BaseData>, ctx: KiEchartsPlus): EChartsOption | ECharts3DOption | EChartsCoreOption
+  resetOption<T>(cols: Column[], data: Array<T & BaseData>, ctx: KidarEcharts): EChartsOption | ECharts3DOption | EChartsCoreOption | false
 }
 
 export declare function defineConfig(config: EchartsPlugin): EchartsPlugin
 
-export declare class KiEchartsPlus extends Vue {
+export declare class KidarEcharts extends Vue {
   static plugins: { [key: string]: EchartsPlugin }
   static install(vue: VueConstructor): void
   static addPlugin(plugin: EchartsPlugin): this

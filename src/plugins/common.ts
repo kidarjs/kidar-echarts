@@ -1,8 +1,8 @@
 import { getTextWidth } from 'nkxrb-tools'
-import { Column, BaseData, KiEchartsPlus } from '../../types/index'
+import { Column, BaseData, KidarEcharts } from '../../types/index'
 import { SliderDataZoomComponentOption } from 'echarts'
 
-export const setZoom = (barsWidth: number, ctx: KiEchartsPlus): SliderDataZoomComponentOption => {
+export const setZoom = (barsWidth: number, ctx: KidarEcharts): SliderDataZoomComponentOption => {
   const zoom: SliderDataZoomComponentOption = {}
   const { chart, data } = ctx
   let interval = 10

@@ -12,16 +12,16 @@
       <button @click="switchType('map3d')">Map 3D</button>
       <button @click="switchType('treemap')">treemap</button>
     </div>
-    <ki-echarts-plus :type="type" :data="data" :cols="cols" :theme="theme" class="echarts-block" />
+    <kidar-echarts :type="type" :data="data" :cols="cols" :theme="theme" class="echarts-block" @click="drill" />
   </div>
 </template>
 
 <script>
 import Mock from "mockjs";
-import { KiEchartsPlus } from "@/index";
+import { KidarEcharts } from "@/index";
 
 export default {
-  components: { KiEchartsPlus },
+  components: { KidarEcharts },
   data () {
     return {
       type: 'pie',
@@ -37,6 +37,9 @@ export default {
     this.switchType(type)
   },
   methods: {
+    drill (params) {
+      console.log(params)
+    },
     switchTheme () {
       this.theme = this.theme ? '' : 'dark'
     },
@@ -44,7 +47,7 @@ export default {
       this.data = Mock.mock({
         [`data|${len}`]: [
           {
-            name: "@city",
+            name: "@province",
             value: "@natural(160, 100000)",
             bar: "@natural(10, 1000)",
             line: "@natural(10, 1000)",

@@ -10,7 +10,7 @@ import pie from './plugins/pie'
 const LAZY_LOAD_PLUGINS = import.meta.glob('./plugins/*.ts')
 
 export default {
-  name: 'KiEchartsPlus',
+  name: 'KidarEcharts',
   props: {
     omit: { type: Number, default: 0 },
     rotate: { type: Number, default: 0 },
@@ -56,12 +56,8 @@ export default {
       this.chart && this.chart.dispose()
       this.init()
     },
-    type: function (newV, oldV) {
-      if (this.isSimType(newV) === this.isSimType(oldV)) {
-        this.chart && this.chart.clear()
-      }
-      // this.chart && this.chart.dispose()
-      // this.init()
+    type: function () {
+      this.setOptionFn()
     },
     data: {
       handler: function () {
@@ -80,6 +76,11 @@ export default {
   methods: {
     init () {
       this.chart = echarts.init(this.$refs.EchartsEl, this.theme, this.opts)
+
+      this.chart.on('click', 'series', params => {
+        this.$emit('click', params)
+      })
+
       listenElResize(this.$refs.EchartsEl, () => {
         this.setOptionFn()
         this.chart.resize()
@@ -94,35 +95,23 @@ export default {
           let importPlugin = await LAZY_LOAD_PLUGINS[`./plugins/${this.type}.ts`]()
           plugin = this.$options.plugins[this.type] = importPlugin.default.default || importPlugin.default || importPlugin
         } catch (error) {
-          throw new Error(`未找到【${this.type}】类型, 目前KiEchartsPlus仅支持pie,line,bar,dybar,multi-line-bar-x
-          若没有满意的类型，可自定义类型plugin，并使用KiEchartsPlus.use(plugin)添加自定义类型。
-          自定义类型可参考技术文档：https://github.com
+          throw new Error(`未找到【${this.type}】类型, 目前KidarEcharts仅支持pie,line,bar,dybar,multi-line-bar-x
+          若没有满意的类型，可自定义类型plugin，并使用KidarEcharts.use(plugin)添加自定义类型。
+          自定义类型可参考技术文档：https://github.com/kidarjs/kidar-echarts
           ：${error}`)
         }
       }
       const option = plugin.resetOption(this.cols, this.data, this)
 
       try {
-        !plugin.isDynamic && this.chart.clear()
-        this.chart.setOption(option)
+        option && this.chart.setOption(option, true)
       } catch (error) {
         if (error.message && error.message.indexOf('not be called during main process') > 0) {
           this.chart.dispose()
-          this.chart.setOption(option)
+          this.chart.setOption(option, true)
         } else {
           throw new Error(error)
         }
-      }
-    },
-    isSimType (type) {
-      if (['line', 'dybar', 'multi-line-bar-x'].includes(type)) {
-        return 'xy'
-      } else if (['pie', 'ring'].includes(type)) {
-        return 'pie'
-      } else if (['map', 'treemap', 'map3d'].includes(type)) {
-        return 'map'
-      } else {
-        return 'unknow'
       }
     }
   }
