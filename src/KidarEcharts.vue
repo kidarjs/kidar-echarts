@@ -1,5 +1,5 @@
 <template>
-  <div ref="EchartsEl"></div>
+  <div ref="EchartsEl" style="transition: all 1s;"></div>
 </template>
 <script>
 import * as echarts from 'echarts'
@@ -49,11 +49,11 @@ export default {
   },
   watch: {
     opts: function () {
-      this.chart && this.chart.dispose()
+      this.chart && this.beforeDestroy()
       this.init()
     },
     theme: function () {
-      this.chart && this.chart.dispose()
+      this.chart && this.beforeDestroy()
       this.init()
     },
     type: function () {
@@ -70,10 +70,13 @@ export default {
     this.$refs.EchartsEl ? this.init() : this.$nextTick(() => this.init())
   },
   beforeDestroy () {
-    this.chart && removeListenElResize(this.$refs.EchartsEl)
-    this.chart.dispose()
+    this.beforeDestroy()
   },
   methods: {
+    beforeDestroy () {
+      this.chart && removeListenElResize(this.$refs.EchartsEl)
+      this.chart.dispose()
+    },
     init () {
       this.chart = echarts.init(this.$refs.EchartsEl, this.theme, this.opts)
 

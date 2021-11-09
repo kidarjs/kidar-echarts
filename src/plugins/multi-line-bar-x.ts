@@ -1,11 +1,10 @@
 import { BarSeriesOption, LineSeriesOption, ScatterSeriesOption } from 'echarts'
 import { defineConfig } from '../index'
 import { setZoom } from './common'
-import { getTextWidth } from 'nkxrb-tools'
+
 
 function setLineSeries(item: LineSeriesOption) {
   item.type = 'line'
-  item.smooth = true
 }
 
 function setBarSeries(item: BarSeriesOption) {
