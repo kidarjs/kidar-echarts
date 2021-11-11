@@ -1,7 +1,8 @@
 <template>
-  <div ref="EchartsEl" style="transition: all 1s;"></div>
+  <div ref="EchartsEl"></div>
 </template>
 <script>
+import { ref, reactive, defineComponent } from 'vue-demi'
 import * as echarts from 'echarts'
 import { removeListenElResize, listenElResize } from 'nkxrb-tools'
 import { debounce } from 'lodash-es'
@@ -9,7 +10,7 @@ import pie from './plugins/pie'
 
 const LAZY_LOAD_PLUGINS = import.meta.glob('./plugins/*.ts')
 
-export default {
+export default defineComponent({
   name: 'KidarEcharts',
   props: {
     omit: { type: Number, default: 0 },
@@ -118,5 +119,5 @@ export default {
       }
     }
   }
-}
+})
 </script>

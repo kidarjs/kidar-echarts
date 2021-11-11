@@ -2,6 +2,7 @@ import { VueConstructor, PluginObject } from 'vue'
 import KidarEcharts from './KidarEcharts.vue'
 import { EchartsPlugin } from '../types/index'
 
+
 KidarEcharts.install = (vue: VueConstructor) => {
   vue.component(KidarEcharts.name, KidarEcharts)
 }

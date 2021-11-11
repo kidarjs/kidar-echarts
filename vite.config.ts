@@ -4,10 +4,14 @@ import { createVuePlugin } from "vite-plugin-vue2";
 import babel from 'rollup-plugin-babel';
 
 const config = defineConfig({
+  optimizeDeps: {
+    exclude: ['vue-demi']
+  },
   resolve: {
     alias: {
       "@": `${path.resolve(__dirname, "src")}`,
-    }
+    },
+    dedupe: ["vue-demi"],
   },
 
   build: {
