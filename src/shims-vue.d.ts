@@ -1,6 +1,6 @@
 declare module "*.vue" {
-  import { KidarEcharts } from '../types/index'
-  const component: KidarEcharts
+  import { App } from 'vue-demi'
+  const component: App
   export default component;
 }
 

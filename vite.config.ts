@@ -10,8 +10,7 @@ const config = defineConfig({
   resolve: {
     alias: {
       "@": `${path.resolve(__dirname, "src")}`,
-    },
-    dedupe: ["vue-demi"],
+    }
   },
 
   build: {
@@ -44,7 +43,6 @@ const config = defineConfig({
             vue: 'Vue',
             echarts: 'echarts'
           }
-
         }
       ]
     }

@@ -1,5 +1,5 @@
-import { VueConstructor } from 'vue'
 import { EChartsCoreOption, EChartsOption, EChartsType } from 'echarts'
+export { KidarEcharts } from '../src/index'
 export declare class Column {
   name: string
   prop?: string
@@ -25,37 +25,52 @@ export interface ECharts3DOption {
   [key: string]: any
 }
 
+export declare class KidarEchartsContext {
+  chart: echarts.ECharts
+  type: string
+  cols: Column[]
+  data: BaseData[]
+  rotate?: number
+  zoomNum?: number
+  theme?: string | Object
+  locale?: string
+  renderer?: 'canvas' | 'svg'
+  omit?: number
+  useDirtyRect?: boolean
+  devicePixelRatio?: number
+  chartId?: string
+}
+
 export interface EchartsPlugin {
   name: string
-  isDynamic?: boolean
-  resetOption<T>(cols: Column[], data: Array<T & BaseData>, ctx: KidarEcharts): EChartsOption | ECharts3DOption | EChartsCoreOption | false
+  resetOption<T>(cols: Column[], data: Array<T & BaseData>, ctx: KidarEchartsContext): EChartsOption | ECharts3DOption | EChartsCoreOption | false
 }
 
 export declare function defineConfig(config: EchartsPlugin): EchartsPlugin
 
-export declare class KidarEcharts extends Vue {
-  static plugins: { [key: string]: EchartsPlugin }
-  static install(vue: VueConstructor): void
-  static addPlugin(plugin: EchartsPlugin): this
+// export declare class KidarEcharts extends Vue {
+//   static plugins: { [key: string]: EchartsPlugin }
+//   static install(vue: VueConstructor): void
+//   static addPlugin(plugin: EchartsPlugin): this
 
-  type: string
-  cols: Column[]
-  data: BaseData[]
-  rotate: number
-  zoomNum: number
-  theme: string | Object
-  locale: string
-  renderer: 'canvas' | 'svg'
-  omit: number
-  isDynamic: boolean
-  useDirtyRect: boolean
-  devicePixelRatio: number
+//   type: string
+//   cols: Column[]
+//   data: BaseData[]
+//   rotate: number
+//   zoomNum: number
+//   theme: string | Object
+//   locale: string
+//   renderer: 'canvas' | 'svg'
+//   omit: number
+//   isDynamic: boolean
+//   useDirtyRect: boolean
+//   devicePixelRatio: number
 
-  // echarts 的实例对象
-  chart: EChartsType
-  chartId: string
+//   // echarts 的实例对象
+//   chart: EChartsType
+//   chartId: string
 
-  // methods
-  init: Function
+//   // methods
+//   init: Function
 
-}
+// }

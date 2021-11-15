@@ -1,6 +1,6 @@
 {
   "name": "kidar-echarts",
-  "version": "0.2.1-bate",
+  "version": "0.3.0-bate",
   "description": "echarts plus for vue",
   "main": "lib/kidar-echarts.cjs.js",
   "module": "lib/kidar-echarts.es.js",
@@ -33,38 +33,37 @@
   },
   "dependencies": {
     "vue-demi": "^0.12.1",
-    "@svg-maps/china": "^1.0.1",
-    "core-js": "^3.11.1",
-    "echarts": "^5.2.1",
-    "echarts-gl": "^2.0.8",
-    "lodash-es": "^4.17.21",
-    "nkxrb-tools": "0.0.5",
-    "ramda": "^0.27.1"
+    "nkxrb-tools": "0.0.5"
   },
   "devDependencies": {
-    "@vue/composition-api": "^1.0.0-beta.10",
-    "vue": "^2.6.12",
+    "@babel/core": "^7.16.0",
     "@babel/preset-env": "^7.15.8",
+    "@svg-maps/china": "^1.0.1",
     "@types/lodash-es": "^4.17.5",
     "@types/mockjs": "^1.0.4",
     "@types/node": "^16.10.1",
     "@typescript-eslint/eslint-plugin": "^4.22.0",
     "@typescript-eslint/parser": "^4.22.0",
+    "@vue/composition-api": "1.4.0",
     "@vue/eslint-config-standard": "^5.1.2",
     "@vue/eslint-config-typescript": "^7.0.0",
+    "core-js": "^3.11.1",
+    "echarts": "^5.2.1",
     "echarts-countries-js": "^1.0.4",
+    "echarts-gl": "^2.0.8",
     "eslint": "^7.25.0",
     "eslint-plugin-import": "^2.24.2",
     "eslint-plugin-standard": "^4.1.0",
     "eslint-plugin-vue": "^7.9.0",
     "husky": "^6.0.0",
-    "i": "^0.3.7",
+    "lodash-es": "^4.17.21",
     "mockjs": "^1.1.0",
     "npm": "^8.1.2",
     "rollup-plugin-babel": "^4.4.0",
     "typescript": "^4.2.4",
     "vite": "^2.2.3",
     "vite-plugin-vue2": "^1.4.4",
-    "vue-template-compiler": "^2.6.12"
+    "vue": "^2.6.12",
+    "vue-template-compiler": "^2.6.14"
   }
 }

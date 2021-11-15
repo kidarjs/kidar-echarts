@@ -3,7 +3,6 @@ import { AXIS_TYPE, CONST_V, POSITION, SERIES_TYPE } from './constant'
 
 export default defineConfig({
   name: 'dybar',
-  isDynamic: true,
   resetOption(cols, data, ctx) {
     let max = 10
     let interval = 25
