@@ -1,6 +1,6 @@
 {
   "name": "kidar-echarts",
-  "version": "0.3.0-bate",
+  "version": "0.3.2-bate",
   "description": "echarts plus for vue",
   "main": "lib/kidar-echarts.cjs.js",
   "module": "lib/kidar-echarts.es.js",
@@ -17,7 +17,8 @@
   "peerDependencies": {
     "@vue/composition-api": "^1.0.0-rc.1",
     "vue": "^2.0.0 || >=3.0.0",
-    "echarts": "^5.0.0"
+    "echarts": "^5.0.0",
+    "echarts-gl": "^2.0.8"
   },
   "peerDependenciesMeta": {
     "@vue/composition-api": {

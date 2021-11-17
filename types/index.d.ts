@@ -26,6 +26,7 @@ export interface ECharts3DOption {
 }
 
 export declare class KidarEchartsContext {
+  init: () => void
   chart: echarts.ECharts
   type: string
   cols: Column[]

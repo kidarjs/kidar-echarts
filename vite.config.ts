@@ -23,7 +23,7 @@ const config = defineConfig({
     },
     rollupOptions: {
       // 确保外部化处理那些你不想打包进库的依赖
-      external: ['vue', 'echarts'],
+      external: ['vue', 'echarts', 'vue-demi', 'echarts-gl/charts', 'echarts-gl/components'],
       output: [
         {
           format: "es",
@@ -31,7 +31,8 @@ const config = defineConfig({
           exports: "named",
           globals: {
             vue: 'Vue',
-            echarts: 'echarts'
+            echarts: 'echarts',
+            'vue-demi': 'VueDemi',
           }
         },
         {
@@ -41,7 +42,10 @@ const config = defineConfig({
           exports: "named",
           globals: { // 在 UMD 构建模式下为这些外部化的依赖提供一个全局变量
             vue: 'Vue',
-            echarts: 'echarts'
+            echarts: 'echarts',
+            'vue-demi': 'VueDemi',
+            'echarts-gl/charts': 'EchartsGLCharts',
+            'echarts-gl/components': 'EchartsGLComponents',
           }
         }
       ]

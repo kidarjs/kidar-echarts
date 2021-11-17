@@ -1,6 +1,6 @@
 import { defineConfig } from '../index'
-import * as echarts from 'echarts/core'
-import china from '../geojson/geo_china.json'
+import * as echarts from 'echarts'
+import china from '../geojson/china.json'
 import { SELECTED_MODE, SERIES_TYPE } from './constant'
 
 echarts.registerMap('china', { geoJSON: china as any, specialAreas: { china: { left: 0, top: 0 } } })

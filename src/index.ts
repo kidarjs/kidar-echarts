@@ -1,4 +1,4 @@
-import { isVue2, computed, defineComponent, h, install, nextTick, onMounted, PropType, ref, toRefs, watch } from 'vue-demi'
+import { computed, defineComponent, h, install, nextTick, onMounted, PropType, ref, toRefs, watch, onUnmounted, App } from 'vue-demi'
 import { EchartsPlugin, Column, BaseData, KidarEchartsContext } from '../types/index'
 import * as echarts from 'echarts'
 import { removeListenElResize, listenElResize } from 'nkxrb-tools'
@@ -38,7 +38,6 @@ const KidarEcharts = defineComponent({
       }
     })
     const init = () => {
-      console.log(KidarEchartsEl.value)
       chart = echarts.init(KidarEchartsEl.value, theme?.value, opts.value)
       chart.on('click', 'series', params => {
         emit('click', params)
@@ -48,7 +47,13 @@ const KidarEcharts = defineComponent({
         resetOption()
         chart && chart.resize()
       })
+      resetOption()
     }
+
+    onUnmounted(() => {
+      removeListenElResize(KidarEchartsEl.value)
+      chart?.dispose()
+    })
     onMounted(() => {
       KidarEchartsEl.value ? init() : nextTick(() => init())
     })
@@ -56,7 +61,7 @@ const KidarEcharts = defineComponent({
     const resetOption = async () => {
       if (!chart) return
 
-      if (PLUGINS.has(type.value)) {
+      if (!PLUGINS.has(type.value)) {
         try {
           let importPlugin = await LAZY_LOAD_PLUGINS[`./plugins/${type.value}.ts`]()
           PLUGINS.set(type.value, importPlugin.default.default || importPlugin.default || importPlugin)
@@ -67,7 +72,7 @@ const KidarEcharts = defineComponent({
           ：${error}`)
         }
       }
-      const option = PLUGINS.get(type.value)?.resetOption(cols.value, data.value, { ...props, chart })
+      const option = PLUGINS.get(type.value)?.resetOption(cols.value, data.value, { ...props, chart, init })
 
       try {
         option && chart.setOption(option, true)
@@ -83,25 +88,27 @@ const KidarEcharts = defineComponent({
 
     watch([type, cols, data], resetOption, { deep: true })
 
-    resetOption()
-
     return {
       KidarEchartsEl
     }
-  }
+  },
+  render: () => h('div', { ref: 'KidarEchartsEl' })
 })
 
-export function defineConfig(config: EchartsPlugin) {
+const defineConfig = (config: EchartsPlugin) => {
   return config
 }
 
-KidarEcharts.addPlugin = (plugin: EchartsPlugin) => {
+const addKidarEchartsPlugin = (plugin: EchartsPlugin) => {
   if (PLUGINS.has(plugin.name)) {
     throw Error(`pluginName is exist ${plugin.name} 该插件名已存在`)
   }
   PLUGINS.set(plugin.name, plugin)
-  return KidarEcharts
+}
+
+const installKidarEcharts = (app: App) => {
+  app.component('KidarEcharts', KidarEcharts)
 }
 
 
-export { KidarEcharts }
+export { KidarEcharts, addKidarEchartsPlugin, defineConfig, installKidarEcharts as install }

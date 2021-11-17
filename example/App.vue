@@ -10,7 +10,8 @@
       <button @click="switchType('multi-line-bar-x')">multi-line-bar-x</button>
       <button @click="switchType('dybar')">dybar（动态排序）</button>
       <button @click="switchType('map')">Map</button>
-      <button @click="switchType('map3d')">Map 3D</button>
+      <button @click="switchType('map3d')">Map3D</button>
+      <button @click="switchType('earth')">地球3D</button>
     </div>
     <kidar-echarts :type="type" :data="data" :cols="cols" :theme="theme" class="echarts-block" @click="drill" />
   </div>
@@ -85,6 +86,7 @@ export default {
           break
         default:
           // this.loadData()
+          this.data = data
           break
       }
       this.type = type;
