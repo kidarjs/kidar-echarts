@@ -1,16 +1,25 @@
 import { defineConfig } from '../index'
+import { omitNum } from './common'
 import { AXIS_TYPE, SERIES_TYPE } from './constant'
+
 
 export default defineConfig({
   name: 'line',
   resetOption(cols, data, ctx) {
-    const option = {
+    return {
       legend: {
         data: cols.map(t => t.name)
       },
+      tooltip: {
+        show: true,
+        trigger: 'axis'
+      },
       yAxis: [
         {
-          type: AXIS_TYPE.value
+          type: AXIS_TYPE.value,
+          axisLabel: {
+            formatter: omitNum
+          }
         }
       ],
       xAxis: [{
@@ -27,7 +36,5 @@ export default defineConfig({
         }
       ]
     }
-
-    return option
   }
 })

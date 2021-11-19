@@ -16,9 +16,7 @@
   ],
   "peerDependencies": {
     "@vue/composition-api": "^1.0.0-rc.1",
-    "vue": "^2.0.0 || >=3.0.0",
-    "echarts": "^5.0.0",
-    "echarts-gl": "^2.0.8"
+    "vue": "^2.0.0 || >=3.0.0"
   },
   "peerDependenciesMeta": {
     "@vue/composition-api": {
@@ -34,7 +32,9 @@
   },
   "dependencies": {
     "vue-demi": "^0.12.1",
-    "nkxrb-tools": "0.0.5"
+    "nkxrb-tools": "0.0.7",
+    "echarts": "^5.0.0",
+    "echarts-gl": "^2.0.8"
   },
   "devDependencies": {
     "@babel/core": "^7.16.0",

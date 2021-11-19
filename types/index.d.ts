@@ -7,6 +7,7 @@ export declare class Column {
   color?: string
   stack?: string
   itemStyle?: Object
+  y1?: boolean
 }
 export declare class BaseData {
   name: string
@@ -40,6 +41,9 @@ export declare class KidarEchartsContext {
   useDirtyRect?: boolean
   devicePixelRatio?: number
   chartId?: string
+
+  //仅适用于双Y轴，确定分割数量
+  splitNumber?: number = 5
 }
 
 export interface EchartsPlugin {

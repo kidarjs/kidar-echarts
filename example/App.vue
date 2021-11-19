@@ -21,14 +21,12 @@
 import Mock from "mockjs";
 import { KidarEcharts } from "@/index";
 
-const data = [{ "name": "吉林省", "value": 61684, "bar": 496, "line": 470 }, { "name": "贵州省", "value": 52562, "bar": 801, "line": 736 }, { "name": "重庆", "value": 50857, "bar": 335, "line": 906 }, { "name": "吉林省", "value": 34610, "bar": 641, "line": 962 }, { "name": "香港特别行政区", "value": 7482, "bar": 356, "line": 498 }, { "name": "辽宁省", "value": 62656, "bar": 632, "line": 241 }, { "name": "四川省", "value": 69524, "bar": 17, "line": 823 }, { "name": "上海", "value": 20918, "bar": 858, "line": 167 }, { "name": "河南省", "value": 73196, "bar": 798, "line": 574 }, { "name": "云南省", "value": 54455, "bar": 602, "line": 709 }, { "name": "海南省", "value": 62191, "bar": 595, "line": 339 }, { "name": "福建省", "value": 92100, "bar": 521, "line": 386 }, { "name": "陕西省", "value": 98426, "bar": 401, "line": 881 }, { "name": "内蒙古自治区", "value": 33366, "bar": 589, "line": 854 }, { "name": "福建省", "value": 68020, "bar": 855, "line": 468 }, { "name": "福建省", "value": 71292, "bar": 348, "line": 355 }, { "name": "山东省", "value": 88152, "bar": 486, "line": 894 }, { "name": "香港特别行政区", "value": 34160, "bar": 555, "line": 712 }, { "name": "新疆维吾尔自治区", "value": 38606, "bar": 62, "line": 364 }, { "name": "台湾", "value": 65613, "bar": 20, "line": 279 }]
-
 export default {
   components: { KidarEcharts },
   data () {
     return {
       type: 'pie',
-      data: data,
+      data: [],
       color: '#ffffff',
       cols: [],
       theme: '',
@@ -53,9 +51,10 @@ export default {
         [`data|${len}`]: [
           {
             name: "@province",
-            value: "@natural(160, 100000)",
-            bar: "@natural(10, 1000)",
-            line: "@natural(10, 1000)",
+            value: "@natural(1600, 59600)",
+            va: "@natural(2100, 9040)",
+            vb: "@natural(1700, 5466)",
+            ratio: "@float(0, 100, 2, 2)",
           }
         ]
       }).data;
@@ -72,6 +71,7 @@ export default {
       this.isDynamic = false
       this.cols = []
       this.setIntervalId && !this.isDynamic && clearInterval(this.setIntervalId)
+      this.type = type;
       switch (type) {
         case 'dybar':
           this.isDynamic = true
@@ -79,17 +79,18 @@ export default {
           break
         case 'multi-line-bar-x':
           this.cols = [
-            { name: '折线', prop: 'line', color: '#1890ff', type: 'line' },
-            { name: '柱子', prop: 'bar', color: '#ff90ff', type: 'bar' }
+            { name: '2021', prop: 'vb', color: '#1890ff', type: 'bar', stack: 'year' },
+            { name: '2020', prop: 'va', color: '#ff90ff', type: 'bar', stack: 'year' },
+            { name: '比例', prop: 'ratio', color: '#44ff99', type: 'line', y1: true }
           ]
-          this.loadData(200)
+          this.loadData()
           break
         default:
-          // this.loadData()
-          this.data = data
+          if (!this.data || this.data.length === 0) {
+            this.loadData()
+          }
           break
       }
-      this.type = type;
       sessionStorage.setItem('KIDAR_INITPARAMS_TYPE', this.type)
 
     },
