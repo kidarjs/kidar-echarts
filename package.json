@@ -32,7 +32,7 @@
   },
   "dependencies": {
     "vue-demi": "^0.12.1",
-    "nkxrb-tools": "0.0.7",
+    "nkxrb-tools": "1.0.0",
     "echarts": "^5.0.0",
     "echarts-gl": "^2.0.8"
   },

@@ -8,7 +8,7 @@ export default defineConfig({
   resetOption(cols, data, ctx) {
     return {
       legend: {
-        data: cols.map(t => t.name)
+        show: false
       },
       tooltip: {
         show: true,

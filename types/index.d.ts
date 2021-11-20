@@ -52,30 +52,3 @@ export interface EchartsPlugin {
 }
 
 export declare function defineConfig(config: EchartsPlugin): EchartsPlugin
-
-// export declare class KidarEcharts extends Vue {
-//   static plugins: { [key: string]: EchartsPlugin }
-//   static install(vue: VueConstructor): void
-//   static addPlugin(plugin: EchartsPlugin): this
-
-//   type: string
-//   cols: Column[]
-//   data: BaseData[]
-//   rotate: number
-//   zoomNum: number
-//   theme: string | Object
-//   locale: string
-//   renderer: 'canvas' | 'svg'
-//   omit: number
-//   isDynamic: boolean
-//   useDirtyRect: boolean
-//   devicePixelRatio: number
-
-//   // echarts 的实例对象
-//   chart: EChartsType
-//   chartId: string
-
-//   // methods
-//   init: Function
-
-// }

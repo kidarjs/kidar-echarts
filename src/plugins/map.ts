@@ -10,7 +10,7 @@ export default defineConfig({
   resetOption(cols, data, ctx) {
     const option = {
       legend: {
-        data: cols.map(t => t.name)
+        show: false
       },
       colorBy: 'data',
       tooltip: {
@@ -26,11 +26,12 @@ export default defineConfig({
         }
       ],
       geo: {
-        roam: true,
-        center: [111.0, 35.02],
+        roam: false,
+        zoom: 1.1,
+        aspectScale: 0.75, //长宽比
         layoutCenter: ['50%', '50%'],
         layoutSize: '100%',
-        selectedMode: SELECTED_MODE.single,
+        selectedMode: false,
         map: 'china',
         coordinateSystem: 'geo'
       },
@@ -43,10 +44,8 @@ export default defineConfig({
           geoIndex: 0,
           symbolSize: (val: Array<number>) => {
             let size = val[3] / 10
-
             size < 5 && (size = 5)
             size > 20 && (size = 20)
-
             return size
           },
           data: [

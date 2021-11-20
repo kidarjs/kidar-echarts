@@ -5,7 +5,7 @@ export default defineConfig({
   resetOption(cols, data, ctx) {
     return {
       legend: {
-        data: cols.map(t => t.name)
+        data: data.map(t => t.name)
       },
       series: [
         {
@@ -13,7 +13,7 @@ export default defineConfig({
           animationDurationUpdate: 1000,
           universalTransition: true,
           type: 'pie',
-          radius: ['35%', '45%'],
+          radius: ['35%', '50%'],
           data: data
         }
       ]

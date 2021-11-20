@@ -8,70 +8,49 @@ echarts.registerMap('china', { geoJSON: china as any, specialAreas: { china: { l
 export default defineConfig({
   name: 'map3d',
   resetOption(cols, data, ctx) {
+    const { theme } = ctx
+    const isDark = theme === 'dark'
+    const itemStyle = {
+      borderColor: isDark ? '#00f8fb' : '#92e1ff',
+      borderWidth: 1,
+      areaColor: {
+        type: 'radial',
+        x: 0.5,
+        y: 0.5,
+        r: 0.8,
+        colorStops: [{
+          offset: 0,
+          color: isDark ? '#09234c' : '#eee' // 0% 处的颜色
+        }, {
+          offset: 1,
+          color: isDark ? '#274d68' : '#ffffff'  // 100% 处的颜色
+        }],
+        globalCoord: true // 缺省为 false
+      }
+    }
+
     const option = {
-      backgroundColor: '#013954',
-      legend: {
-        data: cols.map(t => t.name)
-      },
       colorBy: 'data',
       tooltip: {
         show: true
       },
-      dataZoom: [
-        {
-          type: 'inside'
-        }
-      ],
       geo: {
         map: 'china',
         aspectScale: 0.75, //长宽比
         zoom: 1.1,
         roam: false,
-        itemStyle: {
-          normal: {
-            areaColor: {
-              type: 'radial',
-              x: 0.5,
-              y: 0.5,
-              r: 0.8,
-              colorStops: [{
-                offset: 0,
-                color: '#09132c' // 0% 处的颜色
-              }, {
-                offset: 1,
-                color: '#274d68'  // 100% 处的颜色
-              }],
-              globalCoord: true // 缺省为 false
-            },
-            shadowColor: 'rgb(58,115,192)',
-            shadowOffsetX: 10,
-            shadowOffsetY: 11
-          },
-          emphasis: {
-            areaColor: '#2AB8FF',
-            borderWidth: 0,
-            color: 'green',
-            label: {
-              show: false
-            }
-          }
-        },
+        itemStyle: itemStyle,
         regions: [{
           name: '南海诸岛',
           itemStyle: {
-            areaColor: 'rgba(0, 10, 52, 1)',
-
-            borderColor: 'rgba(0, 10, 52, 1)',
-            normal: {
-              opacity: 0,
-              label: {
-                show: false,
-                color: "#009cc9",
-              }
+            areaColor: '#09234c',
+            borderColor: '#09234c',
+            opacity: 0,
+            label: {
+              show: false,
+              color: "#009cc9",
             }
-          },
-
-
+          }
         }],
       },
       series: [
@@ -79,43 +58,19 @@ export default defineConfig({
           type: 'map',
           roam: false,
           label: {
-            normal: {
-              show: true,
-              textStyle: {
-                color: '#1DE9B6'
-              }
-            },
-            emphasis: {
-              textStyle: {
-                color: 'rgb(183,185,14)'
-              }
-            }
+            show: false,
+            color: '#1DE9B6'
           },
-
-          itemStyle: {
-            normal: {
-              borderColor: 'rgb(147, 235, 248)',
-              borderWidth: 1,
-              areaColor: {
-                type: 'radial',
-                x: 0.5,
-                y: 0.5,
-                r: 0.8,
-                colorStops: [{
-                  offset: 0,
-                  color: '#09132c' // 0% 处的颜色
-                }, {
-                  offset: 1,
-                  color: '#274d68'  // 100% 处的颜色
-                }],
-                globalCoord: true // 缺省为 false
-              },
-            },
-            emphasis: {
-              areaColor: 'rgb(46,229,206)',
+          emphasis: {
+            itemStyle: {
+              areaColor: isDark ? '#00f8fb' : '#92e1ff',
               borderWidth: 0.1
+            },
+            label: {
+              color: '#f87d5a'
             }
           },
+          itemStyle: itemStyle,
           zoom: 1.1,
           map: 'china' //使用
         },

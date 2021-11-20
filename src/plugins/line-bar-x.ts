@@ -1,6 +1,7 @@
 import { BarSeriesOption, LineSeriesOption, ScatterSeriesOption } from 'echarts'
+import { BaseData, Column, KidarEchartsContext } from 'types'
 import { defineConfig } from '../index'
-import { omitNum, setZoom, approximateNum } from './common'
+import { omitNum, setZoom, approximateNum, baseSerie } from './common'
 
 
 function setLineSeries(item: LineSeriesOption) {
@@ -16,6 +17,36 @@ function setScatterSeries(item: ScatterSeriesOption) {
   item.type = 'scatter'
 }
 
+function calculateDoubleYAxisInterval<T>(cols: Column[], data: Array<T & BaseData>, splitNum: number) {
+  let y0Max = 0
+  let y1Max = 0
+  const stackY0 = new Map<string, number>()
+  const stackY1 = new Map<string, number>()
+  cols.forEach(c => {
+    const { y1, stack, name, prop } = c
+    data.forEach(d => {
+      let k = d.name + '-' + stack
+      let val = d[prop || name]
+      if (y1) {
+        stack && stackY1.has(k) ? stackY1.set(k, (stackY1.get(k) || 0) + val) : stackY1.set(k, val)
+      } else {
+        stack && stackY0.has(k) ? stackY0.set(k, (stackY0.get(k) || 0) + val) : stackY0.set(k, val)
+      }
+    })
+  })
+
+  stackY1.forEach(v => {
+    y1Max = Math.max(v, y1Max)
+  })
+  stackY0.forEach(v => {
+    y0Max = Math.max(v, y0Max)
+  })
+
+  let y0Interval = approximateNum(y0Max / splitNum)
+  let y1Interval = approximateNum(y1Max / splitNum)
+  return { y0Interval, y1Interval }
+}
+
 const baseYAxis = {
   type: 'value',
   axisLabel: {
@@ -24,7 +55,7 @@ const baseYAxis = {
 }
 
 export default defineConfig({
-  name: 'multi-line-bar-x',
+  name: 'line-bar-x',
   resetOption(cols, data, ctx) {
     const series: (LineSeriesOption | BarSeriesOption | ScatterSeriesOption)[] = []
     const yAxis = []
@@ -32,23 +63,16 @@ export default defineConfig({
     let barWidthCount = 1
     let barWidth = 30
     const stackSet = new Set()
-    let y0Max = 0
-    let y1Max = 0
     let isDouble = false
-    const stackY0Max = new Map<string, number>()
-    const stackY1Max = new Map<string, number>()
 
     cols.forEach(col => {
       const { name, prop, color, stack, itemStyle, y1 } = col
       !isDouble && (isDouble = y1 ? true : false)
       let yAxisIndex = y1 ? 1 : 0
       let item: LineSeriesOption | BarSeriesOption | ScatterSeriesOption = {
-        name,
-        stack,
-        yAxisIndex,
-        itemStyle: {
-          color: color,
-          ...itemStyle
+        ...baseSerie, name, stack, id: prop || name, yAxisIndex, itemStyle: {
+          ...itemStyle,
+          color: color
         }
       }
 
@@ -65,15 +89,9 @@ export default defineConfig({
 
       item.data = data.map(t => {
         let val = t[prop || name]
-        let k = stack || 'default'
-        if (y1) {
-          stackY1Max.set(k, Math.max(stackY1Max.get(k) || 0, val))
-        } else {
-          stackY0Max.set(k, Math.max(stackY0Max.get(k) || 0, val))
-        }
-
         return {
-          data: { ...t },
+          item: { ...t },
+          col: { ...col },
           name: t.name,
           value: val
         }
@@ -85,20 +103,14 @@ export default defineConfig({
 
     if (isDouble) {
       let splitNum = splitNumber || 5
-      stackY0Max.forEach(v => {
-        y0Max = Math.max(y0Max, v)
-      })
-      stackY1Max.forEach(v => {
-        y1Max = Math.max(y1Max, v)
-      })
-      let y0Interval = approximateNum(y0Max / splitNum)
-      let y1Interval = approximateNum(y1Max / splitNum)
+      const { y0Interval, y1Interval } = calculateDoubleYAxisInterval(cols, data, splitNum)
       yAxis.push({ ...baseYAxis, interval: y0Interval, max: y0Interval * splitNum })
       yAxis.push({ ...baseYAxis, interval: y1Interval, max: y1Interval * splitNum })
     } else {
       yAxis.push({ ...baseYAxis })
     }
 
+    barWidthCount === 1 && (barWidthCount = 2)
     const xLabelWidth = !rotate || rotate === 0 ? barWidth * barWidthCount : barWidth * barWidthCount * Math.abs(90 / rotate)
 
     const dataZoom = setZoom(barWidth * barWidthCount, ctx)

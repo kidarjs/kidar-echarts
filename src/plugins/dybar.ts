@@ -4,16 +4,17 @@ import { AXIS_TYPE, CONST_V, POSITION, SERIES_TYPE } from './constant'
 export default defineConfig({
   name: 'dybar',
   resetOption(cols, data, ctx) {
-    let max = 10
-    let interval = 25
-    max = Math.floor(ctx.chart.getHeight() / 25)
+    let max = Math.floor(ctx.chart.getHeight() / 25)
+    if (max > data.length) {
+      max = data.length
+    }
 
     const option = {
       dataZoom: {
         show: false
       },
       legend: {
-        data: cols.map(t => t.name)
+        show: false
       },
       yAxis: [
         {

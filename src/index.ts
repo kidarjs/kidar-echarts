@@ -2,13 +2,16 @@ import { computed, defineComponent, h, install, nextTick, onMounted, PropType, r
 import { EchartsPlugin, Column, BaseData, KidarEchartsContext } from '../types/index'
 import * as echarts from 'echarts'
 import { removeListenElResize, listenElResize } from 'nkxrb-tools'
+import { kidarDarkTheme } from './theme/index'
 
 install()
 
 declare type rendererType = 'canvas' | 'svg'
-
+const __DEV__ = process.env.NODE_ENV === 'development'
 const LAZY_LOAD_PLUGINS = import.meta.glob('./plugins/*.ts')
 const PLUGINS: Map<string, EchartsPlugin> = new Map()
+
+echarts.registerTheme('dark', kidarDarkTheme)
 
 const KidarEcharts = defineComponent({
   template: `<div ref="KidarEchartsEl"></div>`,
@@ -87,6 +90,10 @@ const KidarEcharts = defineComponent({
     }
 
     watch([type, cols, data], resetOption, { deep: true })
+    watch([theme], () => {
+      chart?.dispose()
+      init()
+    })
 
     return {
       KidarEchartsEl
@@ -101,7 +108,7 @@ const defineConfig = (config: EchartsPlugin) => {
 
 const addKidarEchartsPlugin = (plugin: EchartsPlugin) => {
   if (PLUGINS.has(plugin.name)) {
-    throw Error(`pluginName is exist ${plugin.name} 该插件名已存在`)
+    __DEV__ && console.warn(`pluginName is exist 【${plugin.name}】 该插件名已存在, 重复注册将覆盖已有的插件！`)
   }
   PLUGINS.set(plugin.name, plugin)
 }

@@ -23,10 +23,10 @@ export function omitNum(val: number) {
   let unit = ''
 
   if (val >= 100000000) {
-    res = Number.prototype.toFixed.call(val / 100000000, 2)
+    res = Number.prototype.toFixed.call(val / 100000000, 1)
     unit = '亿'
   } else if (val >= 10000) {
-    res = Number.prototype.toFixed.call(val / 10000, 2)
+    res = Number.prototype.toFixed.call(val / 10000, 1)
     unit = '万'
   } else {
     res = val.toString()
@@ -56,4 +56,30 @@ export function approximateNum(val: number) {
     res = Number(num) + Number(dnum[0]) > 4 ? 1 : 0.5
   }
   return res
+}
+
+
+export function getLinearColor(startColor: string, endColor: string) {
+  const areaStyle = {
+    color: {
+      type: 'linear' as 'linear',
+      x: 0,
+      y: 0,
+      x2: 0,
+      y2: 1,
+      colorStops: [{
+        offset: 0, color: startColor // 0% 处的颜色
+      }, {
+        offset: 1, color: endColor // 100% 处的颜色
+      }],
+      global: false // 缺省为 false
+    }
+  }
+
+  return areaStyle
+}
+
+export const baseSerie = {
+  animationDurationUpdate: 1000,
+  universalTransition: true,
 }
