@@ -1,7 +1,7 @@
 import { AngleAxisComponentOption, BarSeriesOption, LineSeriesOption, PictorialBarSeriesOption, ScatterSeriesOption, YAXisComponentOption } from 'echarts'
 import { BaseData, Column, KidarEchartsContext } from 'types'
 import { defineConfig } from '../index'
-import { omitNum, setZoom, approximateNum, baseSerie } from './common'
+import { omitNum, setZoom, approximateNum, baseSerie } from '../utils/common'
 
 
 function setLineSeries(item: LineSeriesOption) {
@@ -125,6 +125,8 @@ export default defineConfig({
         textStyle: { color: '#fff' }
       },
       grid: {
+        left: 60,
+        right: 60,
         bottom: 100
       },
       legend: {

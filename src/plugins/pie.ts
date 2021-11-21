@@ -1,5 +1,5 @@
 import { defineConfig } from '../index'
-import { setTitle } from './common'
+import { setTitle } from '../utils/common'
 
 export default defineConfig({
   name: 'pie',
@@ -11,8 +11,8 @@ export default defineConfig({
         data: data.map(t => t.name),
         type: 'scroll',
         bottom: 20,
-        left: 16,
-        right: 16
+        left: 'center',
+        padding: [5, 16]
       },
       series: [
         {

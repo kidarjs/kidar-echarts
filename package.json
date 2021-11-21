@@ -1,6 +1,6 @@
 {
   "name": "kidar-echarts",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "description": "echarts plus for vue",
   "main": "lib/kidar-echarts.cjs.js",
   "module": "lib/kidar-echarts.es.js",

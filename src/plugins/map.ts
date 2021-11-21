@@ -3,7 +3,7 @@ import * as echarts from 'echarts'
 import china from '../geojson/china.json'
 import { SERIES_TYPE } from './constant'
 import citiesIngLat from '../data/cities_lng_lat.json'
-import { setTitle } from './common'
+import { setTitle } from '../utils/common'
 
 echarts.registerMap('china', { geoJSON: china as any, specialAreas: { china: { left: 0, top: 0 } } })
 

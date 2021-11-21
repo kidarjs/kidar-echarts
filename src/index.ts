@@ -21,7 +21,8 @@ const KidarEcharts = defineComponent({
     omit: { type: Number, default: 0 },
     rotate: { type: Number, default: 0 },
     zoomNum: { type: Number, default: 7 },
-    title: { type: String, default: 'pie' },
+    title: { type: String, default: '' },
+    subtitle: { type: String, default: '' },
     type: { type: String, default: 'pie' },
     cols: { type: Array as PropType<Column[]>, default: () => [] },
     data: { type: Array as PropType<BaseData[]>, default: () => [] },
@@ -107,7 +108,9 @@ const KidarEcharts = defineComponent({
       KidarEchartsEl
     }
   },
-  render: () => h('div', { ref: 'KidarEchartsEl' })
+  render: () => h('div', { style: 'overflow:hidden !important;' }, [
+    h('div', { ref: 'KidarEchartsEl', style: 'height: 100%; width: 100%;' })
+  ])
 })
 
 const defineConfig = (config: EchartsPlugin) => {

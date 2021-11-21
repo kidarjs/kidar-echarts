@@ -1,5 +1,5 @@
 import { defineConfig } from '../index'
-import { setTitle } from './common'
+import { setTitle } from '../utils/common'
 
 export default defineConfig({
   name: 'ring',
@@ -10,8 +10,8 @@ export default defineConfig({
       legend: {
         type: 'scroll',
         bottom: 20,
-        left: 16,
-        right: 16,
+        left: 'center',
+        padding: [5, 16],
         data: data.map(t => t.name)
       },
       series: [

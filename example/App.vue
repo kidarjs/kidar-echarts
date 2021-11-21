@@ -50,12 +50,12 @@ export default {
       this.color = this.theme ? '#ffffff' : '#100c2a'
       this.theme = this.theme ? '' : 'dark'
     },
-    loadData (len = 30) {
+    loadData (len = 5) {
       let res = Mock.mock({
         [`data|${len}`]: [
           {
             name: "@city",
-            value: "@natural(1600, 59600)",
+            value: "@natural(1600, 11159600)",
             va: "@natural(2100, 19040)",
             vb: "@natural(1700, 5466)",
             tos: function () {

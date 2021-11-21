@@ -1,15 +1,18 @@
 import { defineConfig } from '../index'
+import { setTitle } from '../utils/common'
 import { AXIS_TYPE, CONST_V, POSITION, SERIES_TYPE } from './constant'
 
 export default defineConfig({
   name: 'dybar',
   resetOption(cols, data, ctx) {
+    const title = setTitle(ctx)
     let max = Math.floor(ctx.chart.getHeight() / 25)
     if (max > data.length) {
       max = data.length
     }
 
     const option = {
+      title,
       dataZoom: {
         show: false
       },

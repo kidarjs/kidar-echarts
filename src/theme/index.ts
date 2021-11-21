@@ -3,7 +3,7 @@ export const kidarDarkTheme = {
     "#00f8fb", "#00fe65", "#fbd161", "#fc5051", "#f87d5a", "#7b2cff", "#92e1ff", "#2ca1ff", "#ff7ccc",
     '#09fdb2', '#00da01', '#ff964b', '#ff00ff', '#ff6347', '#4705b5', '#1890ff', '#f5616f', '#ea60ff'
   ],
-  "backgroundColor": "#0a2f5e",
+  "backgroundColor": "#09234c",
   "textStyle": {},
   "title": {
     "textStyle": {

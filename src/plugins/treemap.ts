@@ -1,11 +1,13 @@
 import { defineConfig } from '../index'
+import { setTitle } from '../utils/common'
 import { SERIES_TYPE } from './constant'
 
 export default defineConfig({
   name: 'treemap',
   resetOption(cols, data, ctx) {
-
+    const title = setTitle(ctx)
     return {
+      title,
       series: [
         {
           id: ctx.chartId,

@@ -22,7 +22,7 @@ export const kidarLightTheme =
     "#6f5553",
     "#c14089"
   ],
-  "backgroundColor": "rgba(0,0,0,0)",
+  "backgroundColor": "#ffffff",
   "textStyle": {},
   "title": {
     "textStyle": {

@@ -46,6 +46,7 @@ export declare class KidarEchartsContext {
 
   //仅适用于双Y轴，确定分割数量
   splitNumber?: number = 5
+  subtitle: any
 }
 
 export interface EchartsPlugin {

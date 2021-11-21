@@ -5,7 +5,7 @@
 </p>
 
 <p align="center">
- 具体可点击查看在线示例 ✨ <a href="https://kidarjs.github.io/kidar-vue-examples/">Live Demo</a>
+ 具体可点击查看在线示例 ✨ <a href="https://kidarjs.github.io/kidar-vue-examples/#/echartsplus/">Live Demo</a>
 </p>
 
 # Why
@@ -13,9 +13,9 @@
 
 频繁的编写option很痛苦，属性多得记不住，总是需要查看文档来进行配置
 
-因此更贴合Vue使用者习惯的 kidar-vue-echarts 组件，将会给你带来更舒适的编码体验，减少了echarts的学习成本。
+因此更贴合Vue使用者习惯的 kidar-echarts 组件，将会给你带来更舒适的编码体验，减少了echarts的学习成本。
 
-kidar-vue-echarts为了解决这个问题，将大家常用的option进行收集封装，通过懒加载的方式展现，减少echarts配置的学习成本。
+kidar-echarts为了解决这个问题，将大家常用的option进行收集封装，通过懒加载的方式展现，减少echarts配置的学习成本。
 并且支持自定义option文件，并通过添加插件的方式导入，方便复用。同时你也可以寻找社区分享的好用的option进行安装使用，我们仅需要关注图表所需数据格式、维度，就能画出漂亮的图表了。
 
 # Now
@@ -29,13 +29,18 @@ kidar-vue-echarts为了解决这个问题，将大家常用的option进行收集
 - [x] 支持自适应宽高，当容器大小变化时自动适应
 - [x] 支持IE11
 - [x] 支持Typescript
+- [x] 支持类型切换，并有过度动画效果
+- [x] 支持主题切换，目前有light、dark两种主题色，也可注册自己的主题
 - [ ] 支持自定义参数，方便定制tooltip、label等
 - [ ] 支持点击事件、鼠标移入移出事件
 - [ ] 支持3D
 
 # 效果图预览
 
-<img src="./public/preview.gif" alt="preview" style="zoom:200%;" />
+仅需几行代码，就能画出好看的大屏了，快试试吧
+<img src="./public/dataScreen1.png" alt="preview" style="zoom:100%;" />
+
+<img src="./public/dataScreen2.png" alt="preview" style="zoom:100%;" />
 
 
 # 涉及的技术

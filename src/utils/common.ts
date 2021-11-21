@@ -8,8 +8,9 @@ export const defaultColors = [
 
 export function setTitle(ctx: KidarEchartsContext) {
   return {
-    show: !!ctx.title,
+    show: !!(ctx.title || ctx.subtitle),
     text: ctx.title,
+    subtext: ctx.subtitle,
     left: 'center',
     top: '20'
   }

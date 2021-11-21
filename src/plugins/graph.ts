@@ -1,6 +1,6 @@
 import { GraphSeriesOption } from 'echarts'
 import { defineConfig } from '../index'
-import { omitNum } from './common'
+import { omitNum, setTitle } from '../utils/common'
 import { AXIS_TYPE, SERIES_TYPE } from './constant'
 
 const light = ["#00f8fb", "#00fe65", "#fbd161", "#fc5051", "#f87d5a", "#7b2cff", "#92e1ff", "#2ca1ff", "#ea7ccc"]
@@ -9,6 +9,7 @@ const dark = ['#009db2', '#00f8fb', '#b8860b', '#ff00ff', '#ff6347', '#4705b5', 
 export default defineConfig({
   name: 'graph',
   resetOption(cols, data, ctx) {
+    const title = setTitle(ctx)
     const { theme } = ctx
     const colors = theme === 'dark' ? light : dark
     const seriesData: GraphSeriesOption[] = []
@@ -34,6 +35,7 @@ export default defineConfig({
 
 
     return {
+      title,
       legend: {
         show: false
       },

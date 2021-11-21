@@ -1,6 +1,6 @@
 import { LineSeriesOption } from 'echarts'
 import { defineConfig } from '../index'
-import { getLinearColor, omitNum, setZoom } from './common'
+import { getLinearColor, omitNum, setTitle, setZoom } from '../utils/common'
 import { AXIS_TYPE, SERIES_TYPE } from './constant'
 
 const baseSerie = {
@@ -15,6 +15,7 @@ const baseSerie = {
 export default defineConfig({
   name: 'arealine',
   resetOption(cols, data, ctx) {
+    const title = setTitle(ctx)
     let startColor = 'rgba(25,163,223,.3)'
     let endColor = 'rgba(25,163,223,0)'
 
@@ -45,8 +46,11 @@ export default defineConfig({
     }
 
     return {
+      title,
       dataZoom: dataZoom,
       grid: {
+        left: 60,
+        right: 60,
         bottom: 100
       },
       legend: {
