@@ -12,11 +12,11 @@
       <button @click="switchType('treemap')">treemap</button>
       <button @click="switchType('graph')">graph</button>
       <button @click="switchType('map')">Map</button>
-      <button @click="switchType('map3d')">Map3D</button>
+      <!-- <button @click="switchType('map3d')">Map3D</button> -->
       <button @click="switchType('earth')">地球3D</button>
       <button @click="switchType('custom')">custom</button>
     </div>
-    <kidar-echarts :type="type" :data="data" :cols="cols" :theme="theme" class="echarts-block" @click="drill" />
+    <kidar-echarts title="kidar-echarts" :type="type" :data="data" :cols="cols" :theme="theme" class="echarts-block" @click="drill" />
   </div>
 </template>
 
@@ -29,7 +29,7 @@ export default {
   components: { KidarEcharts },
   data () {
     return {
-      type: 'pie',
+      type: '',
       data: [],
       color: '#ffffff',
       cols: [],
@@ -54,10 +54,19 @@ export default {
       let res = Mock.mock({
         [`data|${len}`]: [
           {
-            name: "@province",
+            name: "@city",
             value: "@natural(1600, 59600)",
             va: "@natural(2100, 19040)",
             vb: "@natural(1700, 5466)",
+            tos: function () {
+              let value = Mock.mock("@natural(1600, 9600)")
+              let toVal = this.value - value
+              return [{
+                name: Mock.mock("@city"),
+                value,
+                toVal
+              }]
+            },
             ratio: function () {
               return Number.prototype.toFixed.call(this.va / (this.va + this.vb) * 100, 2)
             }
@@ -81,6 +90,7 @@ export default {
       this.setIntervalId && !this.isDynamic && clearInterval(this.setIntervalId)
       this.type = type;
       this.cols = [
+        { name: '2019', prop: 'value', color: '#fbd161', type: 'pictorialBar' },
         { name: '2021', prop: 'vb', color: '#1890ff', type: 'bar', stack: 'year' },
         { name: '2020', prop: 'va', color: '#ff90ff', type: 'bar', stack: 'year' },
         { name: '比例', prop: 'ratio', color: '#44ff99', type: 'line', y1: true }
@@ -89,9 +99,6 @@ export default {
         case 'dybar':
           this.isDynamic = true
           this.dynamicLoadData()
-          break
-        case 'multi-line-bar-x':
-          this.loadData()
           break
         default:
           if (!this.data || this.data.length === 0) {

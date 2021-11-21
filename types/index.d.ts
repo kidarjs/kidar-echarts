@@ -8,6 +8,7 @@ export declare class Column {
   stack?: string
   itemStyle?: Object
   y1?: boolean
+  symbol: string
 }
 export declare class BaseData {
   name: string
@@ -29,6 +30,7 @@ export interface ECharts3DOption {
 export declare class KidarEchartsContext {
   init: () => void
   chart: echarts.ECharts
+  title: string
   type: string
   cols: Column[]
   data: BaseData[]

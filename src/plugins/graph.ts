@@ -3,18 +3,32 @@ import { defineConfig } from '../index'
 import { omitNum } from './common'
 import { AXIS_TYPE, SERIES_TYPE } from './constant'
 
+const light = ["#00f8fb", "#00fe65", "#fbd161", "#fc5051", "#f87d5a", "#7b2cff", "#92e1ff", "#2ca1ff", "#ea7ccc"]
+const dark = ['#009db2', '#00f8fb', '#b8860b', '#ff00ff', '#ff6347', '#4705b5', '#00fe65', '#0780cf', '#f5616f']
+
 export default defineConfig({
   name: 'graph',
   resetOption(cols, data, ctx) {
-    let res = data.sort((a, b) => b.value - a.value)
+    const { theme } = ctx
+    const colors = theme === 'dark' ? light : dark
     const seriesData: GraphSeriesOption[] = []
     let max = 0
     let min = 0
-    res.forEach(d => {
+    let i = 0
+    data.forEach(d => {
       const { name, value } = d
       max = Math.max(max, value)
       min = Math.min(min, value)
-      const item = { name, value, draggable: true, }
+      if (i >= colors.length) {
+        i = 0
+      }
+      const item = {
+        name, value, draggable: true, itemStyle: {
+          shadowBlur: 100,
+          shadowColor: colors[i],
+          color: colors[i++]
+        },
+      }
       seriesData.push(item)
     })
 

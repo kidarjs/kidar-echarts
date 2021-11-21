@@ -3,6 +3,7 @@ import { EchartsPlugin, Column, BaseData, KidarEchartsContext } from '../types/i
 import * as echarts from 'echarts'
 import { removeListenElResize, listenElResize } from 'nkxrb-tools'
 import { kidarDarkTheme } from './theme/index'
+import { kidarLightTheme } from './theme/kidarLightTheme'
 
 install()
 
@@ -11,6 +12,7 @@ const __DEV__ = process.env.NODE_ENV === 'development'
 const LAZY_LOAD_PLUGINS = import.meta.glob('./plugins/*.ts')
 const PLUGINS: Map<string, EchartsPlugin> = new Map()
 
+echarts.registerTheme('light', kidarLightTheme)
 echarts.registerTheme('dark', kidarDarkTheme)
 
 const KidarEcharts = defineComponent({
@@ -19,10 +21,11 @@ const KidarEcharts = defineComponent({
     omit: { type: Number, default: 0 },
     rotate: { type: Number, default: 0 },
     zoomNum: { type: Number, default: 7 },
+    title: { type: String, default: 'pie' },
     type: { type: String, default: 'pie' },
     cols: { type: Array as PropType<Column[]>, default: () => [] },
     data: { type: Array as PropType<BaseData[]>, default: () => [] },
-    theme: { type: [String, Object] as PropType<string | object> },
+    theme: { type: [String, Object] as PropType<string | Object>, default: 'dark' },
     locale: { type: String, default: 'zh-cn' },
     renderer: { type: String as PropType<rendererType>, default: 'canvas' },
     useDirtyRect: { type: Boolean, default: false },
@@ -41,7 +44,11 @@ const KidarEcharts = defineComponent({
       }
     })
     const init = () => {
-      chart = echarts.init(KidarEchartsEl.value, theme?.value, opts.value)
+      let themeName: string | Object = 'light'
+      if (theme && theme.value) {
+        themeName = theme.value
+      }
+      chart = echarts.init(KidarEchartsEl.value, themeName, opts.value)
       chart.on('click', 'series', params => {
         emit('click', params)
       })
@@ -62,7 +69,7 @@ const KidarEcharts = defineComponent({
     })
 
     const resetOption = async () => {
-      if (!chart) return
+      if (!chart || !type.value) return
 
       if (!PLUGINS.has(type.value)) {
         try {
@@ -75,6 +82,7 @@ const KidarEcharts = defineComponent({
           ：${error}`)
         }
       }
+      chart.setOption({}, false) // 用于初始化option，确保chart.getOption可以拿到默认配置
       const option = PLUGINS.get(type.value)?.resetOption(cols.value, data.value, { ...props, chart, init })
 
       try {

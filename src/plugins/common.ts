@@ -1,16 +1,31 @@
-import { getTextWidth } from 'nkxrb-tools'
 import { Column, BaseData, KidarEchartsContext } from '../../types/index'
 import { SliderDataZoomComponentOption } from 'echarts'
+
+export const defaultColors = [
+  "#00f8fb", "#00fe65", "#fbd161", "#fc5051", "#f87d5a", "#7b2cff", "#92e1ff", "#2ca1ff", "#ff7ccc",
+  '#09fdb2', '#00da01', '#ff964b', '#ff00ff', '#ff6347', '#4705b5', '#1890ff', '#f5616f', '#ea60ff'
+]
+
+export function setTitle(ctx: KidarEchartsContext) {
+  return {
+    show: !!ctx.title,
+    text: ctx.title,
+    left: 'center',
+    top: '20'
+  }
+}
 
 export const setZoom = (barsWidth: number, ctx: KidarEchartsContext): SliderDataZoomComponentOption => {
   const zoom: SliderDataZoomComponentOption = {}
   const { chart, data } = ctx
-  let interval = 10
+  let interval = 15
   const end = chart.getWidth() / (barsWidth + interval)
 
   zoom.show = end < data.length - 1
   zoom.startValue = 0
   zoom.endValue = end
+  zoom.zoomLock = true
+  zoom.height = 10
 
   return zoom
 }
@@ -51,7 +66,11 @@ export function approximateNum(val: number) {
   let strNum = val.toString()
   const [num, dnum] = strNum.split('.') // 通过小数点进行分割
   if (num.length > 1) {
-    res = Math.ceil(Number(num.substring(0, 2)) / 10) * Math.pow(10, num.length - 1)
+    if (Number(num[1]) > 4) {
+      res = Math.ceil(Number(num.substring(0, 2)) / 10) * Math.pow(10, num.length - 1)
+    } else {
+      res = Number(num[0] + 5) * Math.pow(10, num.length - 2)
+    }
   } else if (num !== '0') {
     res = Number(num) + Number(dnum[0]) > 4 ? 1 : 0.5
   }

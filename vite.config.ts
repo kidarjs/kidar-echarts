@@ -12,7 +12,11 @@ const config = defineConfig({
       "@": `${path.resolve(__dirname, "src")}`,
     }
   },
-
+  json: {
+    // 若设置为 true，导入的 JSON 会被转换为 export default JSON.parse("...")，
+    // 这样会比转译成对象字面量性能更好，尤其是当 JSON 文件较大的时候
+    stringify: true
+  },
   build: {
     minify: true,
     outDir: 'lib',

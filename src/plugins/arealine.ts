@@ -1,6 +1,6 @@
 import { LineSeriesOption } from 'echarts'
 import { defineConfig } from '../index'
-import { getLinearColor, omitNum } from './common'
+import { getLinearColor, omitNum, setZoom } from './common'
 import { AXIS_TYPE, SERIES_TYPE } from './constant'
 
 const baseSerie = {
@@ -39,8 +39,21 @@ export default defineConfig({
       series.push(serie)
     })
 
+    const dataZoom = setZoom(30, ctx)
+    if (dataZoom.show) {
+      dataZoom.bottom = 60
+    }
+
     return {
+      dataZoom: dataZoom,
+      grid: {
+        bottom: 100
+      },
       legend: {
+        show: true,
+        type: "scroll",
+        bottom: 20,
+        icon: 'circle',
         data: cols.map(t => t.name)
       },
       tooltip: {
