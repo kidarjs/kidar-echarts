@@ -44,7 +44,8 @@ kidar-echarts为了解决这个问题，将大家常用的option进行收集封�
 
 # 涉及的技术
 * vite
-* vue2
+* vue-demi
+* vue2-3
 * typescript
 
 # 🚀 Getting started
@@ -58,7 +59,7 @@ npm install kidar-echarts
 ## Development
 
 1. new .vue file
-2. copy these codes 
+2. copy the following codes 
 3. run it
 
 ```vue
@@ -93,11 +94,11 @@ export default {
 
 ```ts
 // main.ts
-import { KidarEcharts } from 'kidar-echarts'
+import { addKidarEchartsPlugin } from 'kidar-echarts'
 
 import barX from "./plugins/barX";
 
-KidarEcharts.addPlugin(barX)
+addKidarEchartsPlugin(barX)
 
 ```
 
