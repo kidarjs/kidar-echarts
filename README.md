@@ -65,6 +65,18 @@ npm install kidar-echarts
 ```vue
 <template>
   <!-- 注意，容器的初始宽高需要定义，不然看不到 -->
+  <!-- type类型值有：
+       line-bar-x（柱状、折线混搭） 
+       arealine（面积图） 
+       dybar（动态条形图） 
+       earth（3D地球） 
+       map（中国地图） 
+       treemap（正方形区域） 
+       graph（泡泡图）
+       ring（环形图）
+       pie（饼状图）
+       ... 支持用户自定义，可以扩充适宜于自己项目风格的图表
+    -->
   <kidar-echarts type="line-bar-x" :data="data" :cols="cols" style="height: 400px; width: 100%" />
 </template>
 <script>
