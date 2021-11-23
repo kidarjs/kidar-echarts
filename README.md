@@ -27,7 +27,6 @@ kidar-echarts为了解决这个问题，将大家常用的option进行收集封�
 - [x] 快速绘制出简单图形，饼图、折线、柱状、环形、多样组合、地图
 - [x] 支持自定义插件
 - [x] 支持自适应宽高，当容器大小变化时自动适应
-- [x] 支持IE11
 - [x] 支持Typescript
 - [x] 支持类型切换，并有过度动画效果
 - [x] 支持主题切换，目前有light、dark两种主题色，也可注册自己的主题
@@ -65,10 +64,10 @@ npm install kidar-echarts
 ```vue
 <template>
   <!-- 注意，容器的初始宽高需要定义，不然看不到 -->
-  <kidar-echarts type="multi-line-bar-x" :data="data" :cols="cols" style="height: 400px; width: 100%" />
+  <kidar-echarts type="line-bar-x" :data="data" :cols="cols" style="height: 400px; width: 100%" />
 </template>
 <script>
-import { KidarEcharts } from 'kidar-vue-echarts'
+import { KidarEcharts } from 'kidar-echarts'
 export default {
   components: { KidarEcharts },
   data(){

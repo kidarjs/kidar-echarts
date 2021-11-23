@@ -1,5 +1,5 @@
 import { EChartsCoreOption, EChartsOption, EChartsType } from 'echarts'
-export { KidarEcharts } from '../src/index'
+export { KidarEcharts, addKidarEchartsPlugin } from '../src/index'
 export declare class Column {
   name: string
   prop?: string
@@ -12,7 +12,7 @@ export declare class Column {
 }
 export declare class BaseData {
   name: string
-  [key: string | 'value']: number
+  value: number
   [key: string]: unknown
 }
 
@@ -45,7 +45,7 @@ export declare class KidarEchartsContext {
   chartId?: string
 
   //仅适用于双Y轴，确定分割数量
-  splitNumber?: number = 5
+  splitNumber?: number
   subtitle: any
 }
 
