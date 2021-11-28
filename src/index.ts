@@ -1,32 +1,27 @@
-import { computed, defineComponent, h, install, nextTick, onMounted, PropType, ref, toRefs, watch, onUnmounted, App } from 'vue-demi'
-import { EchartsPlugin, Column, BaseData, KidarEchartsContext } from '../types/index'
+import { computed, defineComponent, h, install, nextTick, onMounted, PropType, ref, toRefs, watch, onUnmounted, App, watchEffect } from 'vue-demi'
+import { EchartsPlugin, Column, BaseData, KidarEchartsContext } from 'kidar-echarts-plugins/helper'
 import * as echarts from 'echarts'
 import { removeListenElResize, listenElResize } from 'nkxrb-tools'
-import { kidarDarkTheme } from './theme/index'
-import { kidarLightTheme } from './theme/kidarLightTheme'
 
 install()
 
 declare type rendererType = 'canvas' | 'svg'
 const __DEV__ = process.env.NODE_ENV === 'development'
-const LAZY_LOAD_PLUGINS = import.meta.glob('./plugins/*.ts')
 const PLUGINS: Map<string, EchartsPlugin> = new Map()
-
-echarts.registerTheme('light', kidarLightTheme)
-echarts.registerTheme('dark', kidarDarkTheme)
 
 const KidarEcharts = defineComponent({
   template: `<div ref="KidarEchartsEl"></div>`,
   props: {
-    omit: { type: Number, default: 0 },
-    rotate: { type: Number, default: 0 },
-    zoomNum: { type: Number, default: 7 },
+    extra: { type: Object },
     title: { type: String, default: '' },
     subtitle: { type: String, default: '' },
-    type: { type: String, default: 'pie' },
+    tooltip: { type: Function },
+    click: { type: Function },
+    label: { type: Function },
+    type: { type: String, require: true },
     cols: { type: Array as PropType<Column[]>, default: () => [] },
     data: { type: Array as PropType<BaseData[]>, default: () => [] },
-    theme: { type: [String, Object] as PropType<string | Object>, default: 'dark' },
+    theme: { type: [String, Object] as PropType<string | Object> },
     locale: { type: String, default: 'zh-cn' },
     renderer: { type: String as PropType<rendererType>, default: 'canvas' },
     useDirtyRect: { type: Boolean, default: false },
@@ -45,14 +40,7 @@ const KidarEcharts = defineComponent({
       }
     })
     const init = () => {
-      let themeName: string | Object = 'light'
-      if (theme && theme.value) {
-        themeName = theme.value
-      }
-      chart = echarts.init(KidarEchartsEl.value, themeName, opts.value)
-      chart.on('click', 'series', params => {
-        emit('click', params)
-      })
+      chart = echarts.getInstanceByDom(KidarEchartsEl.value) || echarts.init(KidarEchartsEl.value, theme ? theme.value : '', opts.value)
 
       listenElResize(KidarEchartsEl.value, () => {
         resetOption()
@@ -69,22 +57,19 @@ const KidarEcharts = defineComponent({
       KidarEchartsEl.value ? init() : nextTick(() => init())
     })
 
-    const resetOption = async () => {
+    const resetOption = () => {
       if (!chart || !type.value) return
 
       if (!PLUGINS.has(type.value)) {
-        try {
-          let importPlugin = await LAZY_LOAD_PLUGINS[`./plugins/${type.value}.ts`]()
-          PLUGINS.set(type.value, importPlugin.default.default || importPlugin.default || importPlugin)
-        } catch (error) {
-          throw new Error(`未找到【${type.value}】类型, 目前KidarEcharts仅支持pie,line,bar,dybar,multi-line-bar-x
-          若没有满意的类型，可自定义类型plugin，并使用KidarEcharts.use(plugin)添加自定义类型。
-          自定义类型可参考技术文档：https://github.com/kidarjs/kidar-echarts
-          ：${error}`)
+        if (__DEV__) {
+          throw new Error(`there is not exist ${type.value} plugin, you can try [ npm i kidar-echarts-plugins or custom plugins ]。
+            yon can see：https://github.com/kidarjs/kidar-echarts
+          `)
         }
+        return
       }
       chart.setOption({}, false) // 用于初始化option，确保chart.getOption可以拿到默认配置
-      const option = PLUGINS.get(type.value)?.resetOption(cols.value, data.value, { ...props, chart, init })
+      const option = PLUGINS.get(type.value)?.resetOption(props.cols || [], data.value, { ...props, chart, init })
 
       try {
         option && chart.setOption(option, true)
@@ -99,6 +84,13 @@ const KidarEcharts = defineComponent({
     }
 
     watch([type, cols, data], resetOption, { deep: true })
+
+    watchEffect(() => {
+      if (props.click) {
+        chart?.on('click', p => props.click!(p))
+      }
+    })
+
     watch([theme], () => {
       chart?.dispose()
       init()
@@ -113,15 +105,11 @@ const KidarEcharts = defineComponent({
   ])
 })
 
-const defineConfig = (config: EchartsPlugin) => {
-  return config
-}
-
-const addKidarEchartsPlugin = (plugin: EchartsPlugin) => {
-  if (PLUGINS.has(plugin.name)) {
-    __DEV__ && console.warn(`pluginName is exist 【${plugin.name}】 该插件名已存在, 重复注册将覆盖已有的插件！`)
+const addKidarEchartsPlugin = (pluginName: string, plugin: EchartsPlugin) => {
+  if (PLUGINS.has(pluginName)) {
+    __DEV__ && console.warn(`pluginName is exist 【${pluginName}】 该插件名已存在, 重复注册将覆盖已有的插件！`)
   }
-  PLUGINS.set(plugin.name, plugin)
+  PLUGINS.set(pluginName, plugin)
 }
 
 const installKidarEcharts = (app: App) => {
@@ -129,4 +117,4 @@ const installKidarEcharts = (app: App) => {
 }
 
 
-export { KidarEcharts, addKidarEchartsPlugin, defineConfig, installKidarEcharts as install }
+export { KidarEcharts, addKidarEchartsPlugin, installKidarEcharts as install }

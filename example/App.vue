@@ -16,7 +16,7 @@
       <button @click="switchType('earth')">地球3D</button>
       <button @click="switchType('custom')">custom</button>
     </div>
-    <kidar-echarts title="kidar-echarts" :type="type" :data="data" :cols="cols" :theme="theme" class="echarts-block" @click="drill" />
+    <kidar-echarts title="kidar-echarts" :type="type" :data="data" :cols="cols" :theme="theme" class="echarts-block" :click="drill" />
   </div>
 </template>
 
@@ -24,12 +24,14 @@
 import Mock from "mockjs";
 import { KidarEcharts, addKidarEchartsPlugin } from "@/index";
 import custom from './custom-plugin'
-addKidarEchartsPlugin(custom)
+import LineBarX from 'kidar-echarts-plugins/line-bar-x'
+addKidarEchartsPlugin('custom', custom)
+addKidarEchartsPlugin('line-bar-x', LineBarX)
 export default {
   components: { KidarEcharts },
   data () {
     return {
-      type: '',
+      type: 'line-bar-x',
       data: [],
       color: '#ffffff',
       cols: [],
@@ -39,7 +41,7 @@ export default {
     };
   },
   mounted () {
-    let type = sessionStorage.getItem('KIDAR_INITPARAMS_TYPE') || 'pie'
+    let type = sessionStorage.getItem('KIDAR_INITPARAMS_TYPE') || 'line-bar-x'
     this.switchType(type)
   },
   methods: {

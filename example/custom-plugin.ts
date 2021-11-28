@@ -1,7 +1,6 @@
-import { defineConfig } from '../src/index'
+import { defineConfig } from 'kidar-echarts-plugins/helper'
 
 export default defineConfig({
-  name: 'custom',
   resetOption(cols, data, ctx) {
     return {
       dataZoom: {
