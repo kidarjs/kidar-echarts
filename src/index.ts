@@ -27,7 +27,7 @@ const KidarEcharts = defineComponent({
     useDirtyRect: { type: Boolean, default: false },
     devicePixelRatio: { type: Number, default: window.devicePixelRatio },
   },
-  setup(props: KidarEchartsContext, { emit, attrs }: any) {
+  setup(props, { emit, attrs }) {
     const KidarEchartsEl = ref()
     const { theme, type, cols, data } = toRefs(props)
     let chart: echarts.ECharts | null = null
@@ -51,7 +51,7 @@ const KidarEcharts = defineComponent({
 
     onUnmounted(() => {
       removeListenElResize(KidarEchartsEl.value)
-      chart?.dispose()
+      chart && chart.dispose()
     })
     onMounted(() => {
       KidarEchartsEl.value ? init() : nextTick(() => init())
@@ -69,16 +69,17 @@ const KidarEcharts = defineComponent({
         return
       }
       chart.setOption({}, false) // 用于初始化option，确保chart.getOption可以拿到默认配置
-      const option = PLUGINS.get(type.value)?.resetOption(props.cols || [], data.value, { ...props, chart, init })
-
-      try {
-        option && chart.setOption(option, true)
-      } catch (error: any) {
-        if (error.message && error.message.indexOf('not be called during main process') > 0) {
-          chart.dispose()
+      if (PLUGINS.get(type.value)) {
+        const option = PLUGINS.get(type.value)!.resetOption(props.cols || [], data.value, { ...props, chart, init })
+        try {
           option && chart.setOption(option, true)
-        } else {
-          throw new Error(error)
+        } catch (error: any) {
+          if (error.message && error.message.indexOf('not be called during main process') > 0) {
+            chart.dispose()
+            option && chart.setOption(option, true)
+          } else {
+            throw new Error(error)
+          }
         }
       }
     }
@@ -87,12 +88,12 @@ const KidarEcharts = defineComponent({
 
     watchEffect(() => {
       if (props.click) {
-        chart?.on('click', p => props.click!(p))
+        chart && chart.on('click', p => props.click!(p))
       }
     })
 
     watch([theme], () => {
-      chart?.dispose()
+      chart && chart.dispose()
       init()
     })
 

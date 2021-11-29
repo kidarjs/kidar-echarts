@@ -1,6 +1,6 @@
 import path from "path";
 import { defineConfig } from "vite";
-import { createVuePlugin } from "vite-plugin-vue2";
+import vue from '@vitejs/plugin-vue'
 import babel from 'rollup-plugin-babel';
 
 const config = defineConfig({
@@ -57,7 +57,7 @@ const config = defineConfig({
   },
 
   plugins: [
-    createVuePlugin(),
+    vue(),
     babel()
   ],
 });
