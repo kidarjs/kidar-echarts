@@ -1,11 +1,12 @@
 import { computed, defineComponent, h, install, nextTick, onMounted, PropType, ref, toRefs, watch, onUnmounted, App, watchEffect } from 'vue-demi'
-import { EchartsPlugin, Column, BaseData, KidarEchartsContext } from 'kidar-echarts-plugins/helper'
+import { EchartsPlugin, Column, BaseData } from 'kidar-echarts-plugins/helper'
 import * as echarts from 'echarts'
 import { removeListenElResize, listenElResize } from 'nkxrb-tools'
 
 install()
 
 declare type rendererType = 'canvas' | 'svg'
+declare type func = (params: any) => any
 const __DEV__ = process.env.NODE_ENV === 'development'
 const PLUGINS: Map<string, EchartsPlugin> = new Map()
 
@@ -13,12 +14,12 @@ const KidarEcharts = defineComponent({
   template: `<div ref="KidarEchartsEl"></div>`,
   props: {
     extra: { type: Object },
-    title: { type: String, default: '' },
+    title: { type: String as PropType<string>, default: '' },
     subtitle: { type: String, default: '' },
-    tooltip: { type: Function },
-    click: { type: Function },
-    label: { type: Function },
-    type: { type: String, require: true },
+    tooltip: { type: Function as PropType<func> },
+    click: { type: Function as PropType<func> },
+    label: { type: Function as PropType<func> },
+    type: { type: String as PropType<string>, require: true, default: '' },
     cols: { type: Array as PropType<Column[]>, default: () => [] },
     data: { type: Array as PropType<BaseData[]>, default: () => [] },
     theme: { type: [String, Object] as PropType<string | Object> },
@@ -44,13 +45,12 @@ const KidarEcharts = defineComponent({
 
       listenElResize(KidarEchartsEl.value, () => {
         resetOption()
-        chart && chart.resize()
       })
       resetOption()
     }
 
     onUnmounted(() => {
-      removeListenElResize(KidarEchartsEl.value)
+      KidarEchartsEl.value && removeListenElResize(KidarEchartsEl.value)
       chart && chart.dispose()
     })
     onMounted(() => {
@@ -58,7 +58,7 @@ const KidarEcharts = defineComponent({
     })
 
     const resetOption = () => {
-      if (!chart || !type.value) return
+      if (!chart || chart.isDisposed() || !type.value) return
 
       if (!PLUGINS.has(type.value)) {
         if (__DEV__) {
@@ -82,6 +82,7 @@ const KidarEcharts = defineComponent({
           }
         }
       }
+      chart.resize()
     }
 
     watch([type, cols, data], resetOption, { deep: true })

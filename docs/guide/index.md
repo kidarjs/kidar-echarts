@@ -1,42 +1,81 @@
 ---
-navbar: true
+title: 开始使用
 ---
 
-### 为什么要使用KidarEcharts
+# 开始使用
 
-当我们使用echarts画图表时，由于使用原生Echarts,option配置项太多，很容易遗漏犯错，当项目中图表很多时，类似的图表很难复用，抽取组件也很麻烦。
+## 总览 
 
-频繁的编写option很痛苦，属性多得记不住，总是需要查看文档来进行配置
+KidarEcharts，是对echarts的进一步封装，采用插件的方式，收集各类优秀的option配置案例，并转换成可复用的插件。
 
-因此更贴合Vue使用者习惯的 kidar-echarts 组件，将会给你带来更舒适的编码体验，减少了echarts的学习成本。
+这样我们就可以很容易的画出漂亮的图表，也可以很容易移植社区中优秀的案例，减少了echarts冗长的配置文档学习。
 
-kidar-echarts为了解决这个问题，将大家常用的option进行收集封装，通过懒加载的方式展现，减少echarts配置的学习成本。
-并且支持自定义option文件，并通过添加插件的方式导入，方便复用。同时你也可以寻找社区分享的好用的option进行安装使用，我们仅需要关注图表所需数据格式、维度，就能画出漂亮的图表了。
+### 特性
+- 简单轻量，没有捆绑功能，所有插件均按需加载
+- 可复用，插件化的配置，提高了类似图表的复用性
+- 可扩展，支持自定义插件
+- 支持主题切换
+
+### 技术栈
+- echarts
+- vue2 | vue3 | react
+- vite
 
 ### 安装
 
-```sh
+Vue2 | Vue3
+```bash
 # 必须, echarts5.x 这里推荐到官网进行定制所需依赖，生成一个最小依赖包进行全局引入
-npm i echarts@5 
-
-# 必须
-npm i kidar-echarts  
-
-# 按需安装
-# 内置了折线-柱状图混搭、圆环图、饼图、面积图、泡泡图、中国地图、矩形
-# 还包括了dark、light两种主题
-npm i kidar-echarts-plugins
+$ npm i kidar-echarts  echarts@5 
 
 ```
 
-### 引入
+React
 
-```html
+```bash
+$ npm i kidar-echarts-react  echarts@5 
+```
+
+引入插件
+```bash
+# 按需安装
+# 内置了折线-柱状图混搭、圆环图、饼图、面积图、泡泡图、中国地图、矩形
+# 还包括了dark、light两种主题
+$ npm i kidar-echarts-plugins
+```
+
+### 项目中使用
+
+```vue
 <template>
-  <kidar-echarts type="line-bar-x" :data="data" :cols="cols" style="height: 400px; width: 100%" />
+  <kidar-echarts type="line-bar-x" :data="data" :cols="cols" style="height: 400px; width: 560px;" />
 </template>
 
 <script>
-  import { KidarEcharts } from 'kidar-echarts'
+  // 对于项目中图表较多的，建议全局引入
+  import { KidarEcharts, addKidarEchartsPlugin } from 'kidar-echarts'
+  import LineBarX from 'kidar-echarts-plugins/line-bar-x'
+  addKidarEchartsPlugin('line-bar-x', LineBarX)
+
+  export default {
+    data(){
+      return{
+        cols: [
+          { name: '成都', color: '#fbd161', type: 'bar' },
+          { name: '深圳东', color: '#1890ff', type: 'bar', stack: '深圳' },
+          { name: '深圳西', color: '#ff90ff', type: 'bar', stack: '深圳' },
+          { name: '上海', color: '#9900ff', type: 'bar' },
+          { name: '比例', prop: 'ratio', color: '#44ff99', type: 'line', y1: true }
+        ],
+        data: [
+          {name: '2018', '深圳西': 150, '成都': 350, '深圳东': 300, '上海': 380, ratio: 75},
+          {name: '2019', '深圳西': 250, '成都': 450, '深圳东': 250, '上海': 480, ratio: 85},
+          {name: '2020', '深圳西': 280, '成都': 550, '深圳东': 300, '上海': 580, ratio: 79},
+          {name: '2021', '深圳西': 300, '成都': 390, '深圳东': 350, '上海': 680, ratio: 84},
+          {name: '2022', '深圳西': 330, '成都': 540, '深圳东': 400, '上海': 780, ratio: 95}
+        ]
+      }
+    }
+  }
 </script>
 ```

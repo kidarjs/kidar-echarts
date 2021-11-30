@@ -1,35 +1,30 @@
+import { nav, sidebar } from './router'
+
 module.exports = {
   title: 'KidarEcharts',
   description: 'A simpler echarts component',
   base: '/kidar-echarts/',
   lang: 'zh-cn',
   head: [
-    // 改变title的图标
-    [
-      'link',
-      {
-        rel: 'icon',
-        href: '/favicon.ico',//图片放在public文件夹下
-      },
-    ],
+    // 改变title的图标 图片放在public文件夹下
+    ['link', { rel: 'icon', href: '/favicon.ico' }],
   ],
   themeConfig: {
     smoothScroll: true,
-    nav: [
-      { text: '介绍', link: '/guide/' },
-    ],
-    sidebar: {
-      '/guide/': [
-        {
-          text: '指南',
-          link: '',
-          children: [
-            { text: '介绍', link: '/guide/' },
-            { text: '基础', link: '/guide/why' }
-          ],
-          sidebarDepth: 3
-        }
-      ]
+    nav,
+    sidebar
+  },
+  markdown: {
+    anchor: {
+      renderPermalink: require('./plugins/render-perma-link')
+    },
+    config: md => {
+      md.use(require('./plugins/markdown-it-custom-anchor'))
+
+      const { demoBlockPlugin } = require('vitepress-theme-demoblock')
+      md.use(demoBlockPlugin, {
+        cssPreprocessor: 'less'
+      })
     }
   }
 }

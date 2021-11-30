@@ -1,8 +1,8 @@
 {
   "name": "kidar-echarts",
-  "version": "0.4.3",
+  "version": "0.4.4",
   "description": "echarts plus for vue",
-  "main": "lib/kidar-echarts.cjs.js",
+  "main": "lib/kidar-echarts.umd.js",
   "module": "lib/kidar-echarts.es.js",
   "types": "types/index.d.ts",
   "author": {
@@ -25,9 +25,10 @@
   },
   "private": false,
   "scripts": {
-    "docs:dev": "vitepress dev docs",
-    "docs:build": "vitepress build docs",
+    "docs:dev": "npm run register:components && vitepress dev docs",
+    "docs:build": "npm run register:components && vitepress build docs",
     "docs:serve": "vitepress serve docs",
+    "register:components": "vitepress-rc",
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint ./src/**/*.{js,ts,tsx,vue,md}",
@@ -35,8 +36,7 @@
   },
   "dependencies": {
     "vue-demi": "^0.12.1",
-    "nkxrb-tools": "1.0.0",
-    "kidar-echarts-plugins": "0.0.3-beta"
+    "nkxrb-tools": "1.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.16.0",
@@ -61,7 +61,7 @@
     "eslint-plugin-standard": "^4.1.0",
     "eslint-plugin-vue": "^7.9.0",
     "husky": "^6.0.0",
-    "kidar-echarts-plugins": "0.0.3-beta",
+    "kidar-echarts-plugins": "0.0.5",
     "lodash-es": "^4.17.21",
     "mockjs": "^1.1.0",
     "npm": "^8.1.2",
@@ -70,6 +70,7 @@
     "vite": "^2.2.3",
     "vite-plugin-vue2": "^1.4.4",
     "vitepress": "^0.20.1",
+    "vitepress-theme-demoblock": "^1.4.2",
     "vue": "^3.2.23"
   }
 }

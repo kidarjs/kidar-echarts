@@ -5,18 +5,11 @@
 </p>
 
 <p align="center">
- 具体可点击查看在线示例 ✨ <a href="https://kidarjs.github.io/kidar-vue-examples/#/echartsplus/">Live Demo</a>
+ 具体可点击查看在线文档 ✨ <a href="https://kidarjs.github.io/kidar-echarts/">Live Doc</a>
 </p>
-
-# Why
-由于使用原生Echarts,option配置项太多，很容易遗漏犯错，当项目中图表很多时，类似的图表很难复用，抽取组件也很麻烦。
-
-频繁的编写option很痛苦，属性多得记不住，总是需要查看文档来进行配置
-
-因此更贴合Vue使用者习惯的 kidar-echarts 组件，将会给你带来更舒适的编码体验，减少了echarts的学习成本。
-
-kidar-echarts为了解决这个问题，将大家常用的option进行收集封装，通过懒加载的方式展现，减少echarts配置的学习成本。
-并且支持自定义option文件，并通过添加插件的方式导入，方便复用。同时你也可以寻找社区分享的好用的option进行安装使用，我们仅需要关注图表所需数据格式、维度，就能画出漂亮的图表了。
+<p align="center">
+ 可视化大屏示例 ✨ <a href="https://kidarjs.github.io/kidar-vue-examples/#/echartsplus/">Live Demo</a>
+</p>
 
 # Now
 目前组件还再完善中，也欢迎大家点评，如果你觉得这个组件还不错，也欢迎贡献代码，扩充更多好看的plugin
@@ -64,23 +57,12 @@ npm install kidar-echarts
 
 ```vue
 <template>
-  <!-- 注意，容器的初始宽高需要定义，不然看不到 -->
-  <!-- type类型值有：
-       line-bar-x（柱状、折线混搭） 
-       arealine（面积图） 
-       dybar（动态条形图） 
-       earth（3D地球） 
-       map（中国地图） 
-       treemap（正方形区域） 
-       graph（泡泡图）
-       ring（环形图）
-       pie（饼状图）
-       ... 支持用户自定义，可以扩充适宜于自己项目风格的图表
-    -->
   <kidar-echarts type="line-bar-x" :data="data" :cols="cols" style="height: 400px; width: 100%" />
 </template>
 <script>
-import { KidarEcharts } from 'kidar-echarts'
+import { KidarEcharts, addKidarEchartsPlugin } from 'kidar-echarts'
+import LineBarX from 'kidar-echarts-plugins/line-bar-x'
+addKidarEchartsPlugin('line-bar-x', LineBarX)
 export default {
   components: { KidarEcharts },
   data(){
@@ -116,7 +98,7 @@ addKidarEchartsPlugin(barX)
 
 ```ts
 // barX.ts 推荐使用 ts + defineConfig 更友好的提示，提前规避编码错误
-import { defineConfig } from 'kidar-echarts'
+import { defineConfig } from 'kidar-echarts-plugins/helper'
 
 export default defineConfig({
   name: 'barX', // 此处的name属性，将用于组件的属性type
