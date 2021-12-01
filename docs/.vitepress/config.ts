@@ -14,6 +14,17 @@ module.exports = {
     nav,
     sidebar
   },
+  vite: {
+    build: {
+      rollupOptions: {
+        output: {
+          manualChunks: {
+            echarts: ['echarts'],
+          }
+        }
+      }
+    }
+  },
   markdown: {
     anchor: {
       renderPermalink: require('./plugins/render-perma-link')

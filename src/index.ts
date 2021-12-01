@@ -26,7 +26,7 @@ const KidarEcharts = defineComponent({
     locale: { type: String, default: 'zh-cn' },
     renderer: { type: String as PropType<rendererType>, default: 'canvas' },
     useDirtyRect: { type: Boolean, default: false },
-    devicePixelRatio: { type: Number, default: window.devicePixelRatio },
+    devicePixelRatio: { type: Number },
   },
   setup(props, { emit, attrs }) {
     const KidarEchartsEl = ref()

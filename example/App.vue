@@ -25,8 +25,14 @@ import Mock from "mockjs";
 import { KidarEcharts, addKidarEchartsPlugin } from "@/index";
 import custom from './custom-plugin'
 import LineBarX from 'kidar-echarts-plugins/line-bar-x'
+import Light from 'kidar-echarts-plugins/theme/light'
+import Dark from 'kidar-echarts-plugins/theme/dark'
+import * as echarts from 'echarts'
+echarts.registerTheme('light', Light)
+echarts.registerTheme('dark', Dark)
 addKidarEchartsPlugin('custom', custom)
 addKidarEchartsPlugin('line-bar-x', LineBarX)
+
 export default {
   components: { KidarEcharts },
   data () {

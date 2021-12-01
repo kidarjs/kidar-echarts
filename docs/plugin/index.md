@@ -4,6 +4,8 @@ title: 插件
 
 # kidar-echarts-plugins
 
+插件只是单纯的js文件，因此与框架无关，Vue、React都可以使用
+
 ## line-bar-x 
 
 通过cols可以实现多条折线、曲线、柱形图、自定义形状柱图的混合搭配
@@ -154,6 +156,79 @@ addKidarEchartsPlugin('graph', Graph)
           {name: '金城', value: 54},
           {name: '呼和浩特市', value: 14},
           {name: '运城', value: 105}
+        ]
+      }
+    }
+  }
+</script>
+```
+:::
+
+## area-line
+
+```js
+// 按需引入
+import { addKidarEchartsPlugin } from 'kidar-echarts'
+import AreaLine from 'kidar-echarts-plugins/area-line'
+addKidarEchartsPlugin('area-line', AreaLine)
+```
+:::demo
+```vue
+<template>
+  <kidar-echarts type="area-line" theme="dark" :data="data" :cols="cols" style="height: 400px; width: 100%;" />
+</template>
+
+<script>
+  // 对于项目中图表较多的，建议全局引
+  export default {
+    data(){
+      return{
+        cols: [
+          { name: '成都', color: '#fbd161' },
+          { name: '深圳东', color: '#1890ff', stack: '深圳' },
+          { name: '深圳西', color: '#ff90ff', stack: '深圳' },
+          { name: '上海', color: '#9900ff' },
+          { name: '比例', prop: 'ratio', color: '#44ff99' }
+        ],
+        data: [
+          {name: '2018', '深圳西': 150, '成都': 350, '深圳东': 300, '上海': 380, ratio: 75},
+          {name: '2019', '深圳西': 250, '成都': 450, '深圳东': 250, '上海': 480, ratio: 85},
+          {name: '2020', '深圳西': 280, '成都': 550, '深圳东': 300, '上海': 580, ratio: 79},
+          {name: '2021', '深圳西': 300, '成都': 390, '深圳东': 350, '上海': 680, ratio: 84},
+          {name: '2022', '深圳西': 330, '成都': 540, '深圳东': 400, '上海': 780, ratio: 95}
+        ]
+      }
+    }
+  }
+</script>
+```
+:::
+
+## tree-map
+
+```js
+// 按需引入
+import { addKidarEchartsPlugin } from 'kidar-echarts'
+import TreeMap from 'kidar-echarts-plugins/tree-map'
+addKidarEchartsPlugin('tree-map', TreeMap)
+```
+:::demo
+```vue
+<template>
+  <kidar-echarts type="tree-map" :data="data" style="height: 400px; width: 100%;" />
+</template>
+
+<script>
+  // 对于项目中图表较多的，建议全局引
+  export default {
+    data(){
+      return{
+        data: [
+          {name: '2018', value: 75},
+          {name: '2019', value: 85},
+          {name: '2020', value: 79},
+          {name: '2021', value: 84},
+          {name: '2022', value: 95}
         ]
       }
     }

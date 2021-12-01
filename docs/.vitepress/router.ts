@@ -18,7 +18,7 @@ const sidebars = [
 ]
 
 export const nav = [
-  { text: '指南', link: '/guide/', items: guide },
+  { text: '指南', link: '/guide/' },
   { text: '组件', link: '/component/' },
   { text: '插件', link: '/plugin/' },
 ]

@@ -1,6 +1,6 @@
 {
   "name": "kidar-echarts",
-  "version": "0.4.4",
+  "version": "0.4.5",
   "description": "echarts plus for vue",
   "main": "lib/kidar-echarts.umd.js",
   "module": "lib/kidar-echarts.es.js",
@@ -35,8 +35,8 @@
     "lint:fix": "eslint ./src/**/*.{js,ts,tsx,vue,md} --fix"
   },
   "dependencies": {
-    "vue-demi": "^0.12.1",
-    "nkxrb-tools": "1.0.0"
+    "nkxrb-tools": "^1.0.1",
+    "vue-demi": "^0.12.1"
   },
   "devDependencies": {
     "@babel/core": "^7.16.0",

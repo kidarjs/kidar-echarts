@@ -10,6 +10,15 @@ KidarEcharts，是对echarts的进一步封装，采用插件的方式，收集�
 
 这样我们就可以很容易的画出漂亮的图表，也可以很容易移植社区中优秀的案例，减少了echarts冗长的配置文档学习。
 
+[这里有个可视化大屏案例](https://kidarjs.github.io/kidar-vue-examples/#/echartsplus/)
+
+## 效果图预览
+
+仅需几行代码，就能画出好看的大屏了，快试试吧
+<img src="/dataScreen1.png" alt="preview" style="zoom:100%;" />
+
+<img src="/dataScreen2.png" alt="preview" style="zoom:100%;" />
+
 ### 特性
 - 简单轻量，没有捆绑功能，所有插件均按需加载
 - 可复用，插件化的配置，提高了类似图表的复用性
