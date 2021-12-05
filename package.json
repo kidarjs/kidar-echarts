@@ -1,19 +1,11 @@
 {
   "name": "kidar-echarts",
-  "version": "0.4.5",
+  "version": "0.5.0",
   "description": "echarts plus for vue",
-  "main": "lib/kidar-echarts.umd.js",
-  "module": "lib/kidar-echarts.es.js",
-  "types": "types/index.d.ts",
   "author": {
     "name": "nkxrb",
     "email": "w626023781@163.com"
   },
-  "files": [
-    "lib",
-    "src",
-    "types"
-  ],
   "peerDependencies": {
     "@vue/composition-api": "^1.0.0-rc.1",
     "vue": "^2.0.0 || >=3.0.0"
@@ -25,52 +17,36 @@
   },
   "private": false,
   "scripts": {
-    "docs:dev": "npm run register:components && vitepress dev docs",
-    "docs:build": "npm run register:components && vitepress build docs",
-    "docs:serve": "vitepress serve docs",
-    "register:components": "vitepress-rc",
-    "dev": "vite",
-    "build": "vite build",
-    "lint": "eslint ./src/**/*.{js,ts,tsx,vue,md}",
-    "lint:fix": "eslint ./src/**/*.{js,ts,tsx,vue,md} --fix"
-  },
-  "dependencies": {
-    "nkxrb-tools": "^1.0.1",
-    "vue-demi": "^0.12.1"
+    "build": "pnpm -r --filter ./packages run build",
+    "dev": "pnpm -r --filter ./packages --parallel run dev"
   },
   "devDependencies": {
     "@babel/core": "^7.16.0",
     "@babel/preset-env": "^7.15.8",
-    "@svg-maps/china": "^1.0.1",
+    "@rollup/plugin-babel": "^5.3.0",
     "@types/lodash-es": "^4.17.5",
     "@types/mockjs": "^1.0.4",
     "@types/node": "^16.10.1",
     "@typescript-eslint/eslint-plugin": "^4.22.0",
     "@typescript-eslint/parser": "^4.22.0",
     "@vitejs/plugin-vue": "^1.10.1",
-    "@vue/compiler-sfc": "^3.2.23",
-    "@vue/composition-api": "1.4.0",
     "@vue/eslint-config-standard": "^5.1.2",
     "@vue/eslint-config-typescript": "^7.0.0",
     "core-js": "^3.11.1",
     "echarts": "^5.2.1",
-    "echarts-countries-js": "^1.0.4",
-    "echarts-gl": "^2.0.8",
     "eslint": "^7.25.0",
     "eslint-plugin-import": "^2.24.2",
     "eslint-plugin-standard": "^4.1.0",
     "eslint-plugin-vue": "^7.9.0",
     "husky": "^6.0.0",
-    "kidar-echarts-plugins": "0.0.5",
     "lodash-es": "^4.17.21",
+    "nkxrb-tools": "^1.0.1",
     "mockjs": "^1.1.0",
-    "npm": "^8.1.2",
-    "rollup-plugin-babel": "^4.4.0",
     "typescript": "^4.2.4",
     "vite": "^2.2.3",
-    "vite-plugin-vue2": "^1.4.4",
-    "vitepress": "^0.20.1",
-    "vitepress-theme-demoblock": "^1.4.2",
-    "vue": "^3.2.23"
+    "vite-plugin-vue2": "^1.4.4"
+  },
+  "engines": {
+    "node": ">=14.0.0"
   }
 }

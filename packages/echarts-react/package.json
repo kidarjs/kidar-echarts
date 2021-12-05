@@ -1,0 +1,29 @@
+{
+  "name": "@kidar/echarts-react",
+  "version": "1.0.0",
+  "description": "echarts plus for vue",
+  "main": "lib/kidar-echarts.umd.js",
+  "module": "lib/kidar-echarts.es.js",
+  "types": "types/index.d.ts",
+  "author": {
+    "name": "nkxrb",
+    "email": "w626023781@163.com"
+  },
+  "scripts": {
+    "build": "vite build",
+    "prepublishOnly": "npm run build"
+  },
+  "peerDependencies": {
+    "echarts": "^5.2.2",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2"
+  },
+  "dependencies": {
+    "@kidar/echarts-helper": "workspace:^1.0.0",
+    "@vitejs/plugin-react": "^1.1.0"
+  },
+  "devDependencies": {
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2"
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "name": "@kidar/echarts-docs",
+  "version": "1.0.0",
+  "description": "docs for kidar-echarts",
+  "author": {
+    "name": "nkxrb",
+    "email": "w626023781@163.com"
+  },
+  "scripts": {
+    "docs:serve": "vitepress serve",
+    "register:components": "vitepress-rc",
+    "dev": "npm run register:components && vitepress dev --port 13001",
+    "build": "npm run register:components && vitepress build"
+  },
+  "devDependencies": {
+    "vitepress": "^0.20.1",
+    "vitepress-theme-demoblock": "^1.4.2",
+    "@kidar/echarts-vue": "workspace:^1.0.0",
+    "@kidar/echarts-plugins": "workspace:^1.0.0",
+    "@kidar/echarts-theme": "workspace:^1.0.0",
+    "@kidar/echarts-helper": "workspace:^1.0.0"
+  }
+}

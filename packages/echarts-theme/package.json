@@ -1,0 +1,12 @@
+{
+  "name": "@kidar/echarts-theme",
+  "version": "1.0.0",
+  "description": "some theme for kidar-echarts",
+  "main": "index.js",
+  "module": "index.js",
+  "types": "index.d.ts",
+  "author": {
+    "name": "nkxrb",
+    "email": "w626023781@163.com"
+  }
+}

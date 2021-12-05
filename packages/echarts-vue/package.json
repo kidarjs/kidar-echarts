@@ -1,0 +1,24 @@
+{
+  "name": "@kidar/echarts-vue",
+  "version": "1.0.0",
+  "description": "echarts plus for vue",
+  "main": "index.ts",
+  "module": "index.ts",
+  "types": "index.d.ts",
+  "author": {
+    "name": "nkxrb",
+    "email": "w626023781@163.com"
+  },
+  "scripts": {
+    "build": "vite build",
+    "prepublishOnly": "npm run build"
+  },
+  "dependencies": {
+    "@kidar/echarts-helper": "workspace:^1.0.0",
+    "vue-demi": "^0.12.1"
+  },
+  "devDependencies": {
+    "@vue/compiler-sfc": "^3.2.23",
+    "vue": "^3.2.23"
+  }
+}
