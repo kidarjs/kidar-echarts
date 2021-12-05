@@ -1,7 +1,7 @@
 import { SliderDataZoomComponentOption } from 'echarts'
 import { KidarEchartsContext } from '@kidar/echarts-helper'
 
-export const isNull = val => val == null
+export const isNull = (val: any) => val == null
 
 export function setTitle(ctx: KidarEchartsContext) {
   return {

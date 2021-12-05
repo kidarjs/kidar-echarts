@@ -1,3 +1,18 @@
 {
-  "extends": "../../tsconfig.base.json"
+  "compilerOptions": {
+    "baseUrl": ".",
+    "outDir": "./",
+    "target": "esnext",
+    "module": "esnext",
+    "strict": true,
+    "resolveJsonModule": true,
+    "moduleResolution": "node",
+    "allowSyntheticDefaultImports": true
+  },
+  "exclude": [
+    "node_modules"
+  ],
+  "include": [
+    "src/*.ts"
+  ]
 }

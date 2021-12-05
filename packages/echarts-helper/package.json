@@ -2,9 +2,9 @@
   "name": "@kidar/echarts-helper",
   "version": "1.0.0",
   "description": "a helper for kidar-echarts",
-  "main": "index.js",
-  "module": "index.js",
-  "types": "index.d.ts",
+  "main": "index.ts",
+  "module": "index.ts",
+  "types": "index.ts",
   "author": {
     "name": "nkxrb",
     "email": "w626023781@163.com"

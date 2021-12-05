@@ -60,7 +60,7 @@ interface LineBarXExtra {
 
 const option = defineConfig({
   resetOption(cols, data, ctx: KidarEchartsContext & { extra?: LineBarXExtra }) {
-    const series: (LineSeriesOption | BarSeriesOption | ScatterSeriesOption)[] = []
+    const series: (LineSeriesOption | BarSeriesOption | ScatterSeriesOption | PictorialBarSeriesOption)[] = []
     const yAxis: any[] = []
     const { rotate, omit, splitNumber } = ctx.extra || {}
     let barWidthCount = 1
@@ -72,7 +72,7 @@ const option = defineConfig({
       const { name, prop, color, stack, itemStyle, y1 } = col
       !isDouble && (isDouble = y1 ? true : false)
       let yAxisIndex = y1 ? 1 : 0
-      let item: LineSeriesOption | BarSeriesOption | ScatterSeriesOption = {
+      let item: LineSeriesOption | BarSeriesOption | ScatterSeriesOption | PictorialBarSeriesOption = {
         ...baseSerie, name, stack, id: name || prop, yAxisIndex, itemStyle: {
           ...itemStyle,
           color: color

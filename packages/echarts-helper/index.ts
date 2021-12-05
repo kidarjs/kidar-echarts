@@ -13,6 +13,7 @@ export declare interface Column {
 export declare interface BaseData {
   name: string
   value: number
+  [key: string]: unknown
 }
 
 export interface ECharts3DSeriesOption {
@@ -51,4 +52,6 @@ export interface EchartsPlugin {
   resetOption<T>(cols: Column[], data: Array<BaseData & T>, ctx: KidarEchartsContext): EChartsOption | ECharts3DOption | EChartsCoreOption | false
 }
 
-export const defineConfig = (config: EchartsPlugin) => { return config }
+export function defineConfig(config: EchartsPlugin) {
+  return config
+}

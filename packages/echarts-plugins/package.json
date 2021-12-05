@@ -2,15 +2,15 @@
   "name": "@kidar/echarts-plugins",
   "version": "1.0.0",
   "description": "echarts plus for vue",
-  "main": "lib/index.js",
+  "main": "index.js",
   "module": "index.js",
-  "types": "types/index.d.ts",
+  "types": "src/index.d.ts",
   "author": {
     "name": "nkxrb",
     "email": "w626023781@163.com"
   },
   "scripts": {
-    "build": "tsc *",
+    "build": "tsc",
     "prepublishOnly": "npm run build"
   },
   "dependencies": {
