@@ -2,9 +2,9 @@
   "name": "@kidar/echarts-plugins",
   "version": "1.0.0",
   "description": "echarts plus for vue",
-  "main": "index.js",
-  "module": "index.js",
-  "types": "src/index.d.ts",
+  "main": "dist/src/index.js",
+  "module": "dist/src/index.js",
+  "types": "src/index.ts",
   "author": {
     "name": "nkxrb",
     "email": "w626023781@163.com"
