@@ -1,14 +1,20 @@
 {
   "name": "@kidar/echarts-plugins",
-  "version": "1.0.0",
-  "description": "echarts plus for vue",
-  "main": "dist/src/index.js",
-  "module": "dist/src/index.js",
-  "types": "src/index.ts",
+  "version": "1.0.2",
+  "description": "plugins for kidar-echarts",
+  "main": "index.js",
+  "module": "index.js",
+  "types": "index.d.ts",
   "author": {
     "name": "nkxrb",
     "email": "w626023781@163.com"
   },
+  "files": [
+    "*.js",
+    "*.d.ts",
+    "asset",
+    "geojson"
+  ],
   "scripts": {
     "build": "tsc",
     "prepublishOnly": "npm run build"

@@ -1,20 +1,26 @@
 {
   "name": "@kidar/echarts-vue",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "echarts plus for vue",
-  "main": "index.ts",
-  "module": "index.ts",
+  "main": "lib/kidar-echarts.umd.js",
+  "module": "lib/kidar-echarts.es.js",
   "types": "index.d.ts",
   "author": {
     "name": "nkxrb",
     "email": "w626023781@163.com"
   },
+  "files": [
+    "lib",
+    "index.d.ts",
+    "index.ts"
+  ],
   "scripts": {
     "build": "vite build",
     "prepublishOnly": "npm run build"
   },
   "dependencies": {
     "@kidar/echarts-helper": "workspace:^1.0.0",
+    "nkxrb-tools": "^1.0.1",
     "vue-demi": "^0.12.1"
   },
   "devDependencies": {

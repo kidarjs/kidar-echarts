@@ -8,8 +8,5 @@
   "author": {
     "name": "nkxrb",
     "email": "w626023781@163.com"
-  },
-  "devDependencies": {
-    "@kidar/echarts-vue": "workspace:^1.0.0"
   }
 }

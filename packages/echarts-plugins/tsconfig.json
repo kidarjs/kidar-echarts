@@ -1,18 +1,22 @@
 {
   "compilerOptions": {
     "baseUrl": ".",
-    "outDir": "dist",
+    "outDir": ".",
     "target": "esnext",
     "module": "esnext",
     "strict": true,
     "resolveJsonModule": true,
     "moduleResolution": "node",
+    "declaration": true,
+    "declarationDir": ".",
     "allowSyntheticDefaultImports": true
   },
   "exclude": [
-    "node_modules"
+    "node_modules",
+    "asset",
+    "geojson"
   ],
   "include": [
-    "src/*.ts"
+    "*.ts"
   ]
 }

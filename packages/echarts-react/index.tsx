@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react'
 import * as echarts from 'echarts'
-import { EchartsPlugin, KidarEchartsContext } from 'kidar-echarts-plugins/helper'
+import { EchartsPlugin, KidarEchartsContext } from '@kidar/echarts-helper'
 
 import { removeListenElResize, listenElResize } from 'nkxrb-tools'
 
@@ -9,7 +9,6 @@ type Prop = {
   className?: string
 } & Omit<KidarEchartsContext, 'init' | 'chart'>
 
-const __DEV__ = process.env.NODE_ENV === 'development'
 const PLUGINS: Map<string, EchartsPlugin> = new Map()
 
 const KidarEcharts = React.memo<Prop>(prop => {
@@ -29,13 +28,15 @@ const KidarEcharts = React.memo<Prop>(prop => {
   const ctx = { ...prop, chart, init }
 
   const resetOption = () => {
-    if (!PLUGINS.has(type)) {
-      if (__DEV__) {
-        throw new Error(`there is not exist ${type} plugin, you can try [ npm i kidar-echarts-plugins or custom plugins ]。
-          yon can see：https://github.com/kidarjs/kidar-echarts
+    if (!type) {
+      throw new Error(`type props is required, you can set type property like type="pie"。
+          yon can see docs: https://kidarjs.github.io/kidar-echarts/guide/#%E5%AE%89%E8%A3%85
         `)
-      }
-      return
+    }
+    if (!PLUGINS.has(type)) {
+      throw new Error(`there is not exist ${type} plugin, you can try [ npm i kidar-echarts-plugins or custom plugins ]。
+          yon can see: https://kidarjs.github.io/kidar-echarts/guide/#%E5%AE%89%E8%A3%85
+        `)
     }
 
     const option = PLUGINS.get(type).resetOption(cols, data, ctx)
@@ -72,7 +73,8 @@ const KidarEcharts = React.memo<Prop>(prop => {
 
 const addKidarEchartsPlugin = (pluginName: string, plugin: EchartsPlugin) => {
   if (PLUGINS.has(pluginName)) {
-    __DEV__ && console.warn(`pluginName is exist 【${pluginName}】 该插件名已存在, 重复注册将覆盖已有的插件！`)
+    console.warn(`pluginName is exist 【${pluginName}】 该插件名已存在, 全局只引入一次就够了!`)
+    return
   }
   PLUGINS.set(pluginName, plugin)
 }

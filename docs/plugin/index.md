@@ -2,7 +2,7 @@
 title: 插件
 ---
 
-# kidar-echarts-plugins
+# @kidar/echarts-plugins
 
 插件只是单纯的js文件，因此与框架无关，Vue、React都可以使用
 
@@ -21,8 +21,8 @@ title: 插件
 
 ```js
 // 按需引入
-import { addKidarEchartsPlugin } from 'kidar-echarts'
-import LineBarX from 'kidar-echarts-plugins/line-bar-x'
+import { addKidarEchartsPlugin } from '@kidar/echarts-vue'
+import LineBarX from '@kidar/echarts-plugins/line-bar-x'
 addKidarEchartsPlugin('line-bar-x', LineBarX)
 ```
 
@@ -62,8 +62,8 @@ addKidarEchartsPlugin('line-bar-x', LineBarX)
 
 ```js
 // 按需引入
-import { addKidarEchartsPlugin } from 'kidar-echarts'
-import Pie from 'kidar-echarts-plugins/pie'
+import { addKidarEchartsPlugin } from '@kidar/echarts-vue'
+import Pie from '@kidar/echarts-plugins/pie'
 addKidarEchartsPlugin('pie', Pie)
 ```
 :::demo
@@ -97,8 +97,8 @@ addKidarEchartsPlugin('pie', Pie)
 
 ```js
 // 按需引入
-import { addKidarEchartsPlugin } from 'kidar-echarts'
-import ChinaMap from 'kidar-echarts-plugins/china-map'
+import { addKidarEchartsPlugin } from '@kidar/echarts-vue'
+import ChinaMap from '@kidar/echarts-plugins/china-map'
 addKidarEchartsPlugin('china-map', ChinaMap)
 ```
 
@@ -131,8 +131,8 @@ addKidarEchartsPlugin('china-map', ChinaMap)
 
 ```js
 // 按需引入
-import { addKidarEchartsPlugin } from 'kidar-echarts'
-import Graph from 'kidar-echarts-plugins/graph'
+import { addKidarEchartsPlugin } from '@kidar/echarts-vue'
+import Graph from '@kidar/echarts-plugins/graph'
 addKidarEchartsPlugin('graph', Graph)
 ```
 
@@ -168,8 +168,8 @@ addKidarEchartsPlugin('graph', Graph)
 
 ```js
 // 按需引入
-import { addKidarEchartsPlugin } from 'kidar-echarts'
-import AreaLine from 'kidar-echarts-plugins/area-line'
+import { addKidarEchartsPlugin } from '@kidar/echarts-vue'
+import AreaLine from '@kidar/echarts-plugins/area-line'
 addKidarEchartsPlugin('area-line', AreaLine)
 ```
 :::demo
@@ -208,8 +208,8 @@ addKidarEchartsPlugin('area-line', AreaLine)
 
 ```js
 // 按需引入
-import { addKidarEchartsPlugin } from 'kidar-echarts'
-import TreeMap from 'kidar-echarts-plugins/tree-map'
+import { addKidarEchartsPlugin } from '@kidar/echarts-vue'
+import TreeMap from '@kidar/echarts-plugins/tree-map'
 addKidarEchartsPlugin('tree-map', TreeMap)
 ```
 :::demo

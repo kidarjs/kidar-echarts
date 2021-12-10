@@ -11,6 +11,11 @@ module.exports = {
   ],
   themeConfig: {
     smoothScroll: true,
+    repo: 'https://github.com/kidarjs/kidar-echarts',
+    repoLabel: 'GITHUB',
+    darkMode: true,
+    toggleSidebar: '护眼',
+    editLink: false,
     nav,
     sidebar
   },

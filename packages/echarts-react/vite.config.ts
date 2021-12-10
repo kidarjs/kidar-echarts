@@ -21,6 +21,7 @@ export default defineConfig({
   ],
   build: {
     minify: true,
+    sourcemap: true,
     outDir: 'lib',
     lib: {
       entry: './index.tsx',

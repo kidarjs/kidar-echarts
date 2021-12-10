@@ -1,5 +1,5 @@
 import { computed, defineComponent, h, install, nextTick, onMounted, PropType, ref, toRefs, watch, onUnmounted, App, watchEffect } from 'vue-demi'
-import { EchartsPlugin, Column, BaseData } from 'kidar-echarts-plugins/helper'
+import { EchartsPlugin, Column, BaseData } from '@kidar/echarts-helper'
 import * as echarts from 'echarts'
 import { removeListenElResize, listenElResize } from 'nkxrb-tools'
 
@@ -7,7 +7,6 @@ install()
 
 declare type rendererType = 'canvas' | 'svg'
 declare type func = (params: any) => any
-const __DEV__ = process.env.NODE_ENV === 'development'
 const PLUGINS: Map<string, EchartsPlugin> = new Map()
 
 const KidarEcharts = defineComponent({
@@ -60,13 +59,15 @@ const KidarEcharts = defineComponent({
     const resetOption = () => {
       if (!chart || chart.isDisposed() || !type.value) return
 
-      if (!PLUGINS.has(type.value)) {
-        if (__DEV__) {
-          throw new Error(`there is not exist ${type.value} plugin, you can try [ npm i kidar-echarts-plugins or custom plugins ]。
-            yon can see：https://github.com/kidarjs/kidar-echarts
+      if (!type.value) {
+        throw new Error(`type props is required, you can set type property like type="pie"。
+            yon can see docs: https://kidarjs.github.io/kidar-echarts/guide/#%E5%AE%89%E8%A3%85
           `)
-        }
-        return
+      }
+      if (!PLUGINS.has(type.value)) {
+        throw new Error(`there is not exist ${type.value} plugin, you can try [ npm i kidar-echarts-plugins or custom plugins ]。
+            yon can see: https://kidarjs.github.io/kidar-echarts/guide/#%E5%AE%89%E8%A3%85
+          `)
       }
       chart.setOption({}, false) // 用于初始化option，确保chart.getOption可以拿到默认配置
       if (PLUGINS.get(type.value)) {
@@ -109,7 +110,8 @@ const KidarEcharts = defineComponent({
 
 const addKidarEchartsPlugin = (pluginName: string, plugin: EchartsPlugin) => {
   if (PLUGINS.has(pluginName)) {
-    __DEV__ && console.warn(`pluginName is exist 【${pluginName}】 该插件名已存在, 重复注册将覆盖已有的插件！`)
+    console.warn(`pluginName is exist 【${pluginName}】 该插件名已存在, 全局只引入一次就够了!`)
+    return
   }
   PLUGINS.set(pluginName, plugin)
 }

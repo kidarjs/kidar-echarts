@@ -36,35 +36,41 @@ KidarEcharts，是对echarts的进一步封装，采用插件的方式，收集�
 Vue2 | Vue3
 ```bash
 # 必须, echarts5.x 这里推荐到官网进行定制所需依赖，生成一个最小依赖包进行全局引入
-$ npm i kidar-echarts  echarts@5 
+$ npm i @kidar/echarts-vue @kidar/echarts-plugins echarts@5 
 
 ```
 
 React
 
 ```bash
-$ npm i kidar-echarts-react  echarts@5 
+# 必须, echarts5.x 这里推荐到官网进行定制所需依赖，生成一个最小依赖包进行全局引入
+$ npm i @kidar/echarts-react @kidar/echarts-plugins echarts@5 
 ```
 
 引入插件
 ```bash
 # 按需安装
 # 内置了折线-柱状图混搭、圆环图、饼图、面积图、泡泡图、中国地图、矩形
-# 还包括了dark、light两种主题
-$ npm i kidar-echarts-plugins
+$ npm i @kidar/echarts-plugins
+```
+
+切换主题
+```bash
+# dark、light两种主题
+$ npm i @kidar/echarts-theme
 ```
 
 ### 项目中使用
 
 ```vue
 <template>
-  <kidar-echarts type="line-bar-x" :data="data" :cols="cols" style="height: 400px; width: 560px;" />
+  <kidar-echarts type="line-bar-x" :data="data" :cols="cols" theme="dark" style="height: 400px; width: 560px;" />
 </template>
 
 <script>
   // 对于项目中图表较多的，建议全局引入
-  import { KidarEcharts, addKidarEchartsPlugin } from 'kidar-echarts'
-  import LineBarX from 'kidar-echarts-plugins/line-bar-x'
+  import { KidarEcharts, addKidarEchartsPlugin } from '@kidar/echarts-vue'
+  import LineBarX from '@kidar/echarts-plugins/line-bar-x'
   addKidarEchartsPlugin('line-bar-x', LineBarX)
 
   export default {

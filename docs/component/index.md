@@ -8,12 +8,12 @@ title: 组件属性
 
 如果使用的是 Vue2 | Vue3,使用kidar-echarts
 ```bash
-$ npm install kidar-echarts
+$ npm install @kidar/echarts-vue
 ```
 
-如果使用的是 React,使用kidar-echarts-react
+如果使用的是 React,使用@kidar/echarts-react
 ```bash
-$ npm install kidar-echarts-react
+$ npm install @kidar/echarts-react
 ```
 ## 属性 | Props
 Vue和React组件的属性是一致的，对应的插件是共用的，和框架无关
@@ -36,12 +36,12 @@ Vue和React组件的属性是一致的，对应的插件是共用的，和框架
 
 改变theme属性，即可切换主题，theme取值根据注册的名称来定
 
-如果想自定义主题，可以到echarts官网在线定制，或者参考 kidar-echarts-plugins/theme/dark 文件进行修改
+如果想自定义主题，可以到echarts官网在线定制，或者参考 @kidar/echarts-theme/dark 文件进行修改
 
 ```ts
 // 引入主题文件，并注册
-import kidarLightTheme from 'kidar-echarts-plugins/theme/light'
-import kidarDarkTheme from 'kidar-echarts-plugins/theme/dark'
+import kidarLightTheme from '@kidar/echarts-theme/light'
+import kidarDarkTheme from '@kidar/echarts-theme/dark'
 import * as echarts from 'echarts'
 echarts.registerTheme('light', kidarLightTheme)
 echarts.registerTheme('dark', kidarDarkTheme)
