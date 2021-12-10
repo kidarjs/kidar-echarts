@@ -18,10 +18,11 @@ jobs:
           fetch-depth: 0
 
       - name: Setup Node.js
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v2
         with:
           # 选择要使用的 node 版本
           node-version: '14'
+      - run: npm i -g pnpm
 
       # 缓存 node_modules
       - name: Cache dependencies
@@ -37,11 +38,11 @@ jobs:
       # 如果缓存没有命中，安装依赖
       - name: Install dependencies
         if: steps.npm-cache.outputs.cache-hit != 'true'
-        run: npm install
+        run: pnpm i
 
       # 运行文档构建脚本
       - name: Build VitePress site
-        run: npm run docs:build
+        run: pnpm build
 
       # 查看 workflow 的文档来获取更多信息
       # @see https://github.com/crazy-max/ghaction-github-pages
