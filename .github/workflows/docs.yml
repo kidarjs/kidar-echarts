@@ -52,7 +52,7 @@ jobs:
           # 部署到 gh-pages 分支
           target_branch: pages
           # 部署目录为 VitePress 的默认输出目录
-          build_dir: packages/docs/.vitepress/dist
+          build_dir: docs/.vitepress/dist
         env:
           # 此处需要配置自己GitHub仓库的secrets，添加TOKEN
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
