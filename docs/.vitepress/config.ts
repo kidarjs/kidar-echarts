@@ -1,13 +1,15 @@
 import { nav, sidebar } from './router'
 
+const BASE = '/kidar-echarts/'
+
 module.exports = {
   title: 'KidarEcharts',
   description: 'A simpler echarts component',
-  base: '/kidar-echarts/',
+  base: BASE,
   lang: 'zh-cn',
   head: [
     // 改变title的图标 图片放在public文件夹下
-    ['link', { rel: 'icon', href: '/favicon.ico' }],
+    ['link', { rel: 'icon', href: BASE + 'favicon.ico' }],
   ],
   themeConfig: {
     smoothScroll: true,
