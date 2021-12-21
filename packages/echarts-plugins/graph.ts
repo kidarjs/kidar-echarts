@@ -9,6 +9,7 @@ const dark = ['#009db2', '#00f8fb', '#b8860b', '#ff00ff', '#ff6347', '#4705b5', 
 export default defineConfig({
   resetOption(cols, data, ctx) {
     const title = setTitle(ctx)
+    const seriesName = cols && cols[0] ? cols[0].name : ctx.chartId
     const { theme } = ctx
     const colors = theme === 'dark' ? light : dark
     const seriesData: GraphSeriesOption[] = []
@@ -43,7 +44,7 @@ export default defineConfig({
       },
       series: [
         {
-          id: ctx.chartId,
+          name: seriesName,
           animationDurationUpdate: 1000,
           universalTransition: true,
           type: SERIES_TYPE.graph,

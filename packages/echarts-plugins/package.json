@@ -3,7 +3,7 @@
   "version": "1.0.2",
   "description": "plugins for kidar-echarts",
   "main": "index.js",
-  "module": "index.js",
+  "module": "index.ts",
   "types": "index.d.ts",
   "author": {
     "name": "nkxrb",

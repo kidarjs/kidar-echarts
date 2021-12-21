@@ -1,125 +1,89 @@
-<h1 align="center">kidar-echarts 🍥 更简单的Echarts</h1>
-
-<p align="center">
-  将必要有关联的配置属性进行封装，仅暴露用户可能自定义的配置选项，无需关注自适应、鼠标点击事件等操作，支持自定义插件，更好的复用配置
-</p>
-
-<p align="center">
- 具体可点击查看在线文档 ✨ <a href="https://kidarjs.github.io/kidar-echarts/">Live Doc</a>
-</p>
-<p align="center">
- 可视化大屏示例 ✨ <a href="https://kidarjs.github.io/kidar-vue-examples/#/echartsplus/">Live Demo</a>
-</p>
-
-# Now
-目前组件还再完善中，也欢迎大家点评，如果你觉得这个组件还不错，也欢迎贡献代码，扩充更多好看的plugin
-
-# 🔥 Features
-每个组件实例都是一个echarts，切换不同的echarts采用懒加载技术，更快更简单的实现不同图形的展示
-
-- [x] 快速绘制出简单图形，饼图、折线、柱状、环形、多样组合、地图
-- [x] 支持自定义插件
-- [x] 支持自适应宽高，当容器大小变化时自动适应
-- [x] 支持Typescript
-- [x] 支持类型切换，并有过度动画效果
-- [x] 支持主题切换，目前有light、dark两种主题色，也可注册自己的主题
-- [ ] 支持自定义参数，方便定制tooltip、label等
-- [ ] 支持点击事件、鼠标移入移出事件
-- [ ] 支持3D
-
-# 效果图预览
-
-仅需几行代码，就能画出好看的大屏了，快试试吧
-<img src="./public/dataScreen1.png" alt="preview" style="zoom:100%;" />
-
-<img src="./public/dataScreen2.png" alt="preview" style="zoom:100%;" />
 
 
-# 涉及的技术
-* vite
-* vue-demi
-* vue2-3
-* typescript
+## 开始使用
 
-# 🚀 Getting started
+KidarEcharts，是对echarts的进一步封装，采用插件的方式，收集各类优秀的option配置案例，并转换成可复用的插件。
 
-## Install
+这样我们就可以很容易的画出漂亮的图表，也可以很容易移植社区中优秀的案例，减少了echarts冗长的配置文档学习。
 
+[KidarEcharts组件文档](https://kidarjs.github.io/kidar-echarts)
+[这里有个可视化大屏案例](https://kidarjs.github.io/kidar-vue-examples/#/echartsplus/)
+
+**当前状态：Beta** 如果觉得不错，欢迎star支持
+
+### 特性
+- 简单轻量，没有捆绑功能，所有插件均按需加载
+- 可复用，插件化的配置，提高了类似图表的复用性
+- 可扩展，支持自定义插件
+- 支持主题切换
+
+### 技术栈
+- echarts
+- vue2 | vue3 | react
+- pnpm + monorepo 
+- vite
+
+### 安装
+
+Vue2 | Vue3
 ```bash
-npm install kidar-echarts
+# 必须, echarts5.x 这里推荐到官网进行定制所需依赖，生成一个最小依赖包进行全局引入
+$ npm i @kidar/echarts-vue @kidar/echarts-plugins echarts@5 
+
 ```
 
-## Development
+React
 
-1. new .vue file
-2. copy the following codes 
-3. run it
+```bash
+# 必须, echarts5.x 这里推荐到官网进行定制所需依赖，生成一个最小依赖包进行全局引入
+$ npm i @kidar/echarts-react @kidar/echarts-plugins echarts@5 
+```
+
+引入插件
+```bash
+# 按需安装
+# 内置了折线-柱状图混搭、圆环图、饼图、面积图、泡泡图、中国地图、矩形
+$ npm i @kidar/echarts-plugins
+```
+
+切换主题
+```bash
+# dark、light两种主题
+$ npm i @kidar/echarts-theme
+```
+
+### 项目中使用
 
 ```vue
 <template>
-  <kidar-echarts type="line-bar-x" :data="data" :cols="cols" style="height: 400px; width: 100%" />
+  <kidar-echarts type="line-bar-x" :data="data" :cols="cols" theme="dark" style="height: 400px; width: 560px;" />
 </template>
+
 <script>
-import { KidarEcharts, addKidarEchartsPlugin } from 'kidar-echarts'
-import LineBarX from 'kidar-echarts-plugins/line-bar-x'
-addKidarEchartsPlugin('line-bar-x', LineBarX)
-export default {
-  components: { KidarEcharts },
-  data(){
-    return {
-      cols: [
-        {name: '折线', color: '#1890ff', type: 'line'},
-        {name: '柱子', color: '#ff90ff', type: 'bar'}
-      ],
-      data: [
-        {name: '2020-01', value: 123},
-        {name: '2020-02', value: 456},
-        {name: '2020-03', value: 789},
-        {name: '2020-04', value: 123}
-      ]
+  // 对于项目中图表较多的，建议全局引入
+  import { KidarEcharts, addKidarEchartsPlugin } from '@kidar/echarts-vue'
+  import LineBarX from '@kidar/echarts-plugins/line-bar-x'
+  addKidarEchartsPlugin('line-bar-x', LineBarX)
+
+  export default {
+    data(){
+      return{
+        cols: [
+          { name: '成都', color: '#fbd161', type: 'bar' },
+          { name: '深圳东', color: '#1890ff', type: 'bar', stack: '深圳' },
+          { name: '深圳西', color: '#ff90ff', type: 'bar', stack: '深圳' },
+          { name: '上海', color: '#9900ff', type: 'bar' },
+          { name: '比例', prop: 'ratio', color: '#44ff99', type: 'line', y1: true }
+        ],
+        data: [
+          {name: '2018', '深圳西': 150, '成都': 350, '深圳东': 300, '上海': 380, ratio: 75},
+          {name: '2019', '深圳西': 250, '成都': 450, '深圳东': 250, '上海': 480, ratio: 85},
+          {name: '2020', '深圳西': 280, '成都': 550, '深圳东': 300, '上海': 580, ratio: 79},
+          {name: '2021', '深圳西': 300, '成都': 390, '深圳东': 350, '上海': 680, ratio: 84},
+          {name: '2022', '深圳西': 330, '成都': 540, '深圳东': 400, '上海': 780, ratio: 95}
+        ]
+      }
     }
   }
-}
 </script>
 ```
-
-
-## 添加自定义插件 Add Plugin 
-
-```ts
-// main.ts
-import { addKidarEchartsPlugin } from 'kidar-echarts'
-
-import barX from "./plugins/barX";
-
-addKidarEchartsPlugin(barX)
-
-```
-
-```ts
-// barX.ts 推荐使用 ts + defineConfig 更友好的提示，提前规避编码错误
-import { defineConfig } from 'kidar-echarts-plugins/helper'
-
-export default defineConfig({
-  name: 'barX', // 此处的name属性，将用于组件的属性type
-  resetOption(cols, data, ctx) {
-    return {
-      yAxis: [{
-        type: 'value'
-      }],
-      xAxis: [{
-        type: 'category',
-        data: data.map(t => t.name)
-      }],
-      series: [
-        {
-          type: 'bar',
-          data: data
-        }
-      ]
-    }
-  }
-})
-
-```
-

@@ -51,40 +51,56 @@ echarts.registerTheme('dark', kidarDarkTheme)
 ```vue
 <template>
   <button @click="changeTheme">切换主题</button>
-  <kidar-echarts type="line-bar-x" :data="data" :cols="cols" :theme="theme" style="height: 400px; width: 100%;" />
+  <span style="margin: 0 10px 0 60px;"> </span>
+  <button v-for="t in types" :key="t" @click="changeType(t)" :class="{'btn-cur': t===type}">{{t}}</button>
+  
+  <kidar-echarts :type="type" :data="data" :cols="cols" :theme="theme" style="height: 400px; width: 100%;" />
 
   <p>KidarEcharts内置了自适应容器功能，下面展示了不同大小的div的表现</p>
-  <kidar-echarts type="line-bar-x" :data="data" :cols="cols" :theme="theme" style="height: 400px; width: 30%;display: inline-block;" />
-  <kidar-echarts type="line-bar-x" :data="data" :cols="cols" :theme="theme" style="height: 400px; width: 70%;display: inline-block;" />
+  <kidar-echarts :type="type" :data="data" :cols="cols" :theme="theme" style="height: 400px; width: 30%;display: inline-block;" />
+  <kidar-echarts :type="type" :data="data" :cols="cols" :theme="theme" style="height: 400px; width: 70%;display: inline-block;" />
 </template>
 
 <script>
   export default {
     data(){
       return{
-        theme: 'light',
+        types: ['line-bar-x','area-line','tree-map','graph','china-map'],
+        theme: 'dark',
+        type: 'line-bar-x',
         cols: [
-          { name: '峰值', prop: 'peak', color: '#fbd161', type: 'pictorialBar' },
           { name: '趋势', prop: 'value', color: '#44ff99', type: 'line' },
+          { name: '峰值', prop: 'peak', color: '#fbd161', type: 'pictorialBar' },
         ],
         data: [
-          {name: '2015', peak: 150, value: 184 },
-          {name: '2016', peak: 250, value: 284 },
-          {name: '2017', peak: 380, value: 384 },
-          {name: '2018', peak: 350, value: 484 },
-          {name: '2019', peak: 450, value: 384 },
-          {name: '2020', peak: 550, value: 584 },
-          {name: '2021', peak: 390, value: 684 },
-          {name: '2022', peak: 540, value: 584 }
+          {name: '上海', peak: 250, value: 284 },
+          {name: '乌鲁木齐', peak: 380, value: 384 },
+          {name: '拉萨', peak: 350, value: 484 },
+          {name: '运城', peak: 450, value: 384 },
+          {name: '深圳', peak: 550, value: 584 },
+          {name: '北京', peak: 150, value: 984 },
         ]
       }
     },
     methods:{
       changeTheme(){
         this.theme = this.theme==='light'?'dark':'light'
+      },
+      changeType(type){
+        console.log(type)
+        this.type = type
       }
     }
   }
 </script>
+<style>
+button{
+  cursor: pointer;
+}
+.btn-cur{
+  color: #ffffff;
+  background-color: #1890ff;
+}
+</style>
 ```
 :::

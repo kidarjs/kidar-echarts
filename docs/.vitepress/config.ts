@@ -40,9 +40,7 @@ module.exports = {
       md.use(require('./plugins/markdown-it-custom-anchor'))
 
       const { demoBlockPlugin } = require('vitepress-theme-demoblock')
-      md.use(demoBlockPlugin, {
-        cssPreprocessor: 'less'
-      })
+      md.use(demoBlockPlugin)
     }
   }
 }

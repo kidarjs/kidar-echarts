@@ -21,7 +21,6 @@ export default defineConfig({
       },
       series: [
         {
-          id: ctx.chartId,
           animationDurationUpdate: 1000,
           universalTransition: true,
           type: 'pie',
