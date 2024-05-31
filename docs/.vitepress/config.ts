@@ -29,8 +29,8 @@ module.exports = {
             echarts: ['echarts'],
           }
         }
-      }
-    }
+      },
+    },
   },
   markdown: {
     anchor: {
